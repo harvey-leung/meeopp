@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2/3rds Average Game</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f1a;
+      color: #e0e0f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: #1a1a2e;
+      border: 1px solid #2a2a4a;
+      border-radius: 16px;
+      padding: 36px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #a78bfa;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+
+    .progress {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+
+    .progress-dot {
+      height: 4px;
+      border-radius: 2px;
+      flex: 1;
+      background: #2a2a4a;
+      transition: background 0.3s;
+    }
+
+    .progress-dot.done { background: #7c3aed; }
+    .progress-dot.active { background: #a78bfa; }
+
+    .player-label {
+      font-size: 0.78rem;
+      color: #7c3aed;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid #2a2a4a;
+      background: #0f0f1a;
+      color: #e0e0f0;
+      font-size: 1.05rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+
+    input:focus { border-color: #7c3aed; }
+
+    .btn {
+      margin-top: 8px;
+      width: 100%;
+      padding: 13px;
+      border-radius: 8px;
+      border: none;
+      background: #7c3aed;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #6d28d9; }
+    .btn.secondary { background: #1f2937; margin-top: 10px; }
+    .btn.secondary:hover { background: #374151; }
+
+    .error {
+      color: #f87171;
+      font-size: 0.82rem;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    /* Hand-off screen */
+    .handoff {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .handoff .big-icon { font-size: 3rem; margin-bottom: 14px; }
+    .handoff h2 { font-size: 1.3rem; color: #a78bfa; margin-bottom: 8px; }
+    .handoff p { color: #6b7280; font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* Leaderboard */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: #0f0f1a;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-box .stat-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-box .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #a78bfa;
+      margin-top: 4px;
+    }
+
+    .lb-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      background: #0f0f1a;
+      border: 1px solid #2a2a4a;
+    }
+
+    .lb-row.winner {
+      background: #1e1040;
+      border-color: #7c3aed;
+    }
+
+    .rank-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .rank-1 { background: #fbbf24; color: #000; }
+    .rank-2 { background: #9ca3af; color: #000; }
+    .rank-3 { background: #b45309; color: #fff; }
+    .rank-other { background: #1f2937; color: #9ca3af; }
+
+    .lb-name { flex: 1; font-weight: 600; font-size: 1rem; }
+
+    .lb-meta { text-align: right; font-size: 0.85rem; }
+    .lb-guess { color: #e0e0f0; font-weight: 600; }
+    .lb-dist { color: #6b7280; font-size: 0.78rem; margin-top: 2px; }
+
+    .winner-banner {
+      text-align: center;
+      padding: 18px;
+      background: #1e1040;
+      border: 1px solid #7c3aed;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .winner-banner .crown { font-size: 2rem; }
+    .winner-banner .win-name { font-size: 1.3rem; font-weight: 700; color: #a78bfa; margin-top: 4px; }
+    .winner-banner .win-sub { font-size: 0.85rem; color: #6b7280; margin-top: 4px; }
+
+    h2 { font-size: 1.1rem; color: #a78bfa; margin-bottom: 16px; }
+
+    .hidden { display: none; }
+
+    .fade-in {
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- Step 1: Choose player count -->
+    <div id="step-count" class="fade-in">
+      <h1>2/3rds Average Game</h1>
+      <p class="subtitle">Guess closest to 2/3 of the group's average to win.</p>
+      <label for="player-count">Number of players</label>
+      <input type="number" id="player-count" min="2" max="20" placeholder="e.g. 4">
+      <p class="error" id="count-error">Enter a number between 2 and 20.</p>
+      <button class="btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- Step 2: Hand-off screen (pass the device) -->
+    <div id="step-handoff" class="hidden">
+      <div class="handoff fade-in">
+        <div class="big-icon">&#128064;</div>
+        <h2 id="handoff-title">Player 1's turn</h2>
+        <p id="handoff-sub">Pass the device to <strong id="handoff-name-hint"></strong>.<br>Don't let anyone else see!</p>
+        <button class="btn" onclick="showInput()">I'm ready &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Single player input -->
+    <div id="step-input" class="hidden">
+      <div id="progress-bar" class="progress"></div>
+      <div class="player-label" id="player-label"></div>
+      <label>Your name</label>
+      <input type="text" id="current-name" placeholder="Enter your name" autocomplete="off">
+      <label>Your guess (1–100)</label>
+      <input type="number" id="current-guess" min="1" max="100" placeholder="e.g. 42" autocomplete="off">
+      <p class="error" id="input-error">Enter a valid number between 1 and 100.</p>
+      <button class="btn" onclick="submitPlayer()">Submit</button>
+    </div>
+
+    <!-- Step 4: Leaderboard -->
+    <div id="step-results" class="hidden">
+      <div id="leaderboard" class="fade-in"></div>
+      <button class="btn" onclick="resetGame()">Play Again</button>
+    </div>
+
+  </div>
+
+  <script>
+    let numPlayers = 0;
+    let currentPlayer = 0;
+    let players = [];
+
+    function show(id) {
+      ['step-count','step-handoff','step-input','step-results'].forEach(s => {
+        document.getElementById(s).classList.add('hidden');
+      });
+      const el = document.getElementById(id);
+      el.classList.remove('hidden');
+    }
+
+    function startGame() {
+      const val = parseInt(document.getElementById('player-count').value);
+      const err = document.getElementById('count-error');
+      if (isNaN(val) || val < 2 || val > 20) {
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+      numPlayers = val;
+      players = [];
+      currentPlayer = 1;
+      showHandoff();
+    }
+
+    function showHandoff() {
+      document.getElementById('handoff-title').textContent = `Player ${currentPlayer}'s turn`;
+      document.getElementById('handoff-name-hint').textContent = `Player ${currentPlayer}`;
+      show('step-handoff');
+      // Re-trigger animation
+      const el = document.querySelector('#step-handoff .handoff');
+      el.classList.remove('fade-in');
+      void el.offsetWidth;
+      el.classList.add('fade-in');
+    }
+
+    function showInput() {
+      buildProgress();
+      document.getElementById('player-label').textContent = `Player ${currentPlayer} of ${numPlayers}`;
+      document.getElementById('current-name').value = '';
+      document.getElementById('current-guess').value = '';
+      document.getElementById('input-error').style.display = 'none';
+      show('step-input');
+      document.getElementById('current-name').focus();
+    }
+
+    function buildProgress() {
+      const bar = document.getElementById('progress-bar');
+      bar.innerHTML = '';
+      for (let i = 1; i <= numPlayers; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot' +
+          (i < currentPlayer ? ' done' : i === currentPlayer ? ' active' : '');
+        bar.appendChild(dot);
+      }
+    }
+
+    function submitPlayer() {
+      const name = document.getElementById('current-name').value.trim() || `Player ${currentPlayer}`;
+      const guess = parseFloat(document.getElementById('current-guess').value);
+      const err = document.getElementById('input-error');
+
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        err.style.display = 'block';
+        document.getElementById('current-guess').focus();
+        return;
+      }
+      err.style.display = 'none';
+
+      players.push({ name, guess });
+
+      if (currentPlayer < numPlayers) {
+        currentPlayer++;
+        showInput();
+      } else {
+        calculateResults();
+      }
+    }
+
+    function calculateResults() {
+      const average = players.reduce((s, p) => s + p.guess, 0) / players.length;
+      const target = (2 / 3) * average;
+
+      players.forEach(p => { p.distance = Math.abs(p.guess - target); });
+      players.sort((a, b) => a.distance - b.distance);
+
+      renderLeaderboard(players, average, target);
+      show('step-results');
+    }
+
+    function renderLeaderboard(players, average, target) {
+      const lb = document.getElementById('leaderboard');
+      const winner = players[0];
+
+      const rankBadge = (i) => {
+        if (i === 0) return `<div class="rank-badge rank-1">1</div>`;
+        if (i === 1) return `<div class="rank-badge rank-2">2</div>`;
+        if (i === 2) return `<div class="rank-badge rank-3">3</div>`;
+        return `<div class="rank-badge rank-other">${i + 1}</div>`;
+      };
+
+      const rows = players.map((p, i) => `
+        <div class="lb-row ${i === 0 ? 'winner' : ''}">
+          ${rankBadge(i)}
+          <div class="lb-name">${escHtml(p.name)}</div>
+          <div class="lb-meta">
+            <div class="lb-guess">${p.guess.toFixed(1)}</div>
+            <div class="lb-dist">off by ${p.distance.toFixed(2)}</div>
+          </div>
+        </div>`).join('');
+
+      lb.innerHTML = `
+        <div class="winner-banner">
+          <div class="crown">&#127881;</div>
+          <div class="win-name">${escHtml(winner.name)} wins!</div>
+          <div class="win-sub">Guessed ${winner.guess.toFixed(1)} — closest to target of ${target.toFixed(2)}</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-label">Average</div>
+            <div class="stat-value">${average.toFixed(2)}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">2/3 Target</div>
+            <div class="stat-value">${target.toFixed(2)}</div>
+          </div>
+        </div>
+        <h2>Leaderboard</h2>
+        ${rows}`;
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function resetGame() {
+      document.getElementById('player-count').value = '';
+      show('step-count');
+    }
+
+    // Allow Enter key to advance
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      const active = ['step-count','step-handoff','step-input'].find(
+        id => !document.getElementById(id).classList.contains('hidden')
+      );
+      if (active === 'step-count') startGame();
+      else if (active === 'step-handoff') showInput();
+      else if (active === 'step-input') submitPlayer();
+    });
+  </script>
+</body>
+</html>
