@@ -1115,6 +1115,65 @@
   }
   .theme-btn:hover { color: var(--text); border-color: rgba(181,38,90,0.4); }
 
+  /* ── LOGIN REWARDS ── */
+  .login-rewards {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .reward-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+  }
+  .reward-pip {
+    width: 100%;
+    min-width: 26px;
+    max-width: 40px;
+    border-radius: 8px;
+    padding: 5px 2px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    transition: transform 0.15s;
+  }
+  .reward-pip:hover { transform: translateY(-2px); }
+  .reward-pip.earned   { background: #FCE4EC; }
+  .reward-pip.gold     { background: linear-gradient(135deg, #FEF3C7, #FDE68A); box-shadow: 0 0 0 1.5px #F59E0B; }
+  .reward-pip.today    { background: #B5265A; }
+  .reward-pip.upcoming { background: var(--bg); border: 1.5px dashed var(--border); }
+  .reward-mp {
+    font-size: 0.6rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .reward-pip.earned   .reward-mp { color: #B5265A; }
+  .reward-pip.gold     .reward-mp { color: #92400E; }
+  .reward-pip.today    .reward-mp { color: #fff; }
+  .reward-pip.upcoming .reward-mp { color: var(--muted); }
+  .reward-check {
+    font-size: 0.55rem;
+    line-height: 1;
+    color: #B5265A;
+  }
+  .reward-pip.gold .reward-check  { color: #92400E; }
+  .reward-pip.today .reward-check { color: #fff; }
+  .reward-day-label {
+    font-size: 0.58rem;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .reward-day-label.today-lbl { color: #B5265A; font-weight: 800; }
+  [data-theme="dark"] .reward-pip.earned   { background: #2A1020; }
+  [data-theme="dark"] .reward-pip.upcoming { background: #18181C; }
+
   /* ── MEEPOINTS BADGE ── */
   .mp-badge {
     display: inline-flex;
@@ -1498,11 +1557,75 @@
   <!-- STATS -->
   <div class="stats">
 
-    <!-- LEFT: Streak -->
+    <!-- LEFT: Streak + login rewards -->
     <div class="stat-card">
-      <div class="stat-label">Streak</div>
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px">
+        <div class="stat-label" style="margin-bottom:0">Streak</div>
+        <span style="font-size:0.7rem;color:var(--muted);font-weight:600">Daily Rewards</span>
+      </div>
       <div class="stat-number">7</div>
-      <div class="stat-sub">Keep it going — you're on a roll!</div>
+      <div class="stat-sub" style="margin-bottom:8px">Keep it going — you're on a roll!</div>
+
+      <!-- 7-day login reward track (today = day 7, May 6) -->
+      <div class="login-rewards">
+
+        <div class="reward-day">
+          <div class="reward-pip earned" title="Apr 30 · +25 MP">
+            <span class="reward-mp">25</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label">Wed</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip earned" title="May 1 · +30 MP">
+            <span class="reward-mp">30</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label">Thu</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip earned" title="May 2 · +15 MP">
+            <span class="reward-mp">15</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label">Fri</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip gold" title="May 3 · +100 MP (Weekly Bonus!)">
+            <span class="reward-mp">100</span>
+            <span class="reward-check">★</span>
+          </div>
+          <div class="reward-day-label">Sat</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip earned" title="May 4 · +40 MP">
+            <span class="reward-mp">40</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label">Sun</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip earned" title="May 5 · +20 MP">
+            <span class="reward-mp">20</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label">Mon</div>
+        </div>
+
+        <div class="reward-day">
+          <div class="reward-pip today" title="Today · +50 MP">
+            <span class="reward-mp">50</span>
+            <span class="reward-check">✓</span>
+          </div>
+          <div class="reward-day-label today-lbl">Tue</div>
+        </div>
+
+      </div>
     </div>
 
     <!-- MIDDLE: Calendar next event -->
