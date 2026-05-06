@@ -134,9 +134,8 @@
   }
 
   h1.welcome {
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 32px;
     letter-spacing: -0.5px;
   }
 
@@ -145,9 +144,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
   }
   .mp-counter {
     display: flex;
@@ -183,17 +182,19 @@
   .stats {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 48px;
+    gap: 14px;
+    margin-bottom: 32px;
   }
 
   .stat-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 24px 28px 28px;
+    padding: 20px 22px 22px;
     cursor: pointer;
     transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
   }
   .stat-card:hover {
     box-shadow: 0 0 0 2px rgba(181,38,90,0.35);
@@ -405,18 +406,18 @@
 
   /* ── SECTION TITLE ── */
   h2.section-title {
-    font-size: 1.75rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -0.3px;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
   }
 
   /* ── UP NEXT ── */
   .up-next-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 48px;
+    gap: 14px;
+    margin-bottom: 32px;
   }
 
   .up-next-left { display: flex; flex-direction: column; gap: 12px; }
@@ -1276,7 +1277,7 @@
   }
 
   /* ── CALENDAR ── */
-  .cal-section { margin-bottom: 48px; }
+  .cal-section { margin-bottom: 32px; }
 
   .cal-section-header {
     display: flex;
@@ -1408,7 +1409,7 @@
   }
 
   /* ── LEADERBOARD ── */
-  .lb-section { margin-bottom: 80px; }
+  .lb-section { margin-bottom: 48px; }
 
   .lb-card {
     background: var(--card);
@@ -1642,8 +1643,7 @@
     <div class="stat-card">
       <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
-      <div class="stat-sub">Keep it going — you're on a roll!</div>
-      <button class="reward-open-btn" onclick="openRewardsModal()">
+      <button class="reward-open-btn" onclick="openRewardsModal()" style="margin-top:auto">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         View Daily Rewards
       </button>
@@ -1658,7 +1658,6 @@
         </div>
       </div>
       <div class="cal-next-wrap">
-        <div class="cal-next-heading">Next event</div>
         <div class="cal-next-name">Weekly Quiz: Actively Listening</div>
         <div class="cal-next-date">May 10 · in 4 days</div>
       </div>
@@ -1673,7 +1672,7 @@
         </div>
         <div class="split-card-text">
           <div class="split-card-title">Leaderboard</div>
-          <div class="split-card-sub">Ranked #6 this month</div>
+          <div class="split-card-sub">#6 this month</div>
         </div>
         <svg class="split-card-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1683,7 +1682,7 @@
         </div>
         <div class="split-card-text">
           <div class="split-card-title">Quiz of the Day</div>
-          <div class="split-card-sub">100 MP bonus available</div>
+          <div class="split-card-sub">+100 MP bonus</div>
         </div>
         <div class="mascot-shadow" id="mascot-shadow"></div>
         <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-12px;right:10px">
@@ -1712,14 +1711,8 @@
           </svg>
         </div>
         <div class="course-info">
-          <div class="course-name">IELTS - Process Description: Introduction + Overview (...</div>
+          <div class="course-name">IELTS — Process Description</div>
           <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 150 MP</div>
-          <div class="course-meta">
-            <span class="tag">
-              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              From Platform Walkthrough
-            </span>
-          </div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
@@ -1732,16 +1725,9 @@
         </div>
         <div class="course-info">
           <div class="course-name">飲食文化與交流</div>
-          <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 120 MP</div>
-          <div class="course-meta">
-            <span class="tag">
-              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              Platform Walkthrough
-            </span>
-            <span class="started">
-              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Started
-            </span>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+            <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 120 MP</div>
+            <span class="started" style="font-size:0.72rem">● Started</span>
           </div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1762,7 +1748,6 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">YNFC4B</div>
-          <div class="answer-status">1 question in progress</div>
           <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1777,7 +1762,6 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">XSKRS8</div>
-          <div class="answer-status">1 question in progress</div>
           <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1788,7 +1772,6 @@
   <div class="quiz-section" id="recap-quiz">
     <div class="quiz-header">
       <h2 class="section-title" style="margin-bottom:0">Recap Quiz</h2>
-      <span class="quiz-header-sub">Spaced repetition · 4 sets due</span>
     </div>
 
     <!-- QUIZ OF THE DAY -->
@@ -1796,17 +1779,13 @@
       <div class="qotd-top">
         <div>
           <div class="qotd-title">IELTS — Writing Task 1: Process Description</div>
-          <div class="qotd-source">Platform Walkthrough · 5 questions · ~4 min</div>
-          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 100 MP bonus today</div>
+          <div class="qotd-source">5 questions · ~4 min</div>
+          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 100 MP bonus</div>
         </div>
         <div class="qotd-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           Quiz of the Day
         </div>
-      </div>
-      <div class="quiz-meta" style="margin-top:2px">
-        <span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Resets in 14 h</span>
-        <span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 23 classmates completed</span>
       </div>
       <button class="quiz-start-btn" style="align-self:flex-start" onclick="openQuiz(0); event.stopPropagation()">Start Now →</button>
     </div>
@@ -1817,21 +1796,11 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">IELTS Process Description</div>
-            <div class="quiz-source">Platform Walkthrough</div>
             <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-due">Due</span>
         </div>
-        <div class="quiz-meta">
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ~4 min
-          </span>
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            5 questions
-          </span>
-        </div>
+        <div class="quiz-meta"><span>5 questions</span></div>
         <button class="quiz-start-btn" onclick="openQuiz(0); event.stopPropagation()">Start Quiz</button>
       </div>
 
@@ -1839,21 +1808,11 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">飲食文化與交流</div>
-            <div class="quiz-source">Platform Walkthrough</div>
             <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 40 MP</div>
           </div>
           <span class="quiz-badge badge-new">New</span>
         </div>
-        <div class="quiz-meta">
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ~3 min
-          </span>
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            4 questions
-          </span>
-        </div>
+        <div class="quiz-meta"><span>4 questions</span></div>
         <button class="quiz-start-btn" onclick="openQuiz(1); event.stopPropagation()">Start Quiz</button>
       </div>
 
@@ -1861,21 +1820,11 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Academic Vocabulary Set A</div>
-            <div class="quiz-source">IELTS Writing Task 1</div>
             <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 60 MP</div>
           </div>
           <span class="quiz-badge badge-review">Review</span>
         </div>
-        <div class="quiz-meta">
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            ~5 min
-          </span>
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            6 questions
-          </span>
-        </div>
+        <div class="quiz-meta"><span>6 questions</span></div>
         <button class="quiz-start-btn" onclick="openQuiz(2); event.stopPropagation()">Start Quiz</button>
       </div>
 
@@ -1883,21 +1832,11 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Linking Words & Cohesion</div>
-            <div class="quiz-source">IELTS Writing Task 2</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP earned</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-done">Done</span>
         </div>
-        <div class="quiz-meta">
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Completed today
-          </span>
-          <span>
-            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            5/5 correct
-          </span>
-        </div>
+        <div class="quiz-meta"><span>5/5 correct</span></div>
         <button class="quiz-start-btn" disabled>Completed</button>
       </div>
 
@@ -1946,8 +1885,6 @@
       <div class="lb-body">
         <!-- TOP 3 -->
         <div class="lb-left">
-          <div class="lb-left-title">Top 3 this month</div>
-
           <div class="lb-podium-row">
             <div class="lb-medal">🥇</div>
             <span class="lb-rank-num">#1</span>
@@ -2162,7 +2099,7 @@
     </svg>
     <div>
       <div class="meebot-header-name">MeeBot</div>
-      <div class="meebot-header-status">Your MeeOpp guide</div>
+      <div class="meebot-header-status">Online</div>
     </div>
     <div class="meebot-header-dot"></div>
   </div>
