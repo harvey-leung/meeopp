@@ -161,12 +161,8 @@
   }
   .mp-counter-icon {
     width: 32px; height: 32px;
-    background: #B5265A;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 900;
-    color: white;
     flex-shrink: 0;
   }
   .mp-counter-val {
@@ -324,21 +320,22 @@
   /* ── MASCOT GROUND SHADOW ── */
   .mascot-shadow {
     position: absolute;
-    bottom: 6px;
-    right: 21px;
-    width: 38px;
-    height: 10px;
-    background: radial-gradient(ellipse at center, rgba(181,38,90,0.4) 0%, transparent 72%);
+    bottom: -18px;   /* sits just below the mascot's landing spot */
+    right: 20px;
+    width: 44px;
+    height: 12px;
+    background: radial-gradient(ellipse at center, rgba(181,38,90,0.55) 0%, rgba(181,38,90,0.15) 50%, transparent 75%);
     border-radius: 50%;
     pointer-events: none;
+    transform-origin: center center;
   }
   @keyframes shadow-anim {
     0%   { transform: scaleX(1)    scaleY(1);    opacity: 1; }
-    10%  { transform: scaleX(1.15) scaleY(0.7);  opacity: 0.9; }
-    28%  { transform: scaleX(0.42) scaleY(0.35); opacity: 0.25; }
-    62%  { transform: scaleX(1.15) scaleY(0.7);  opacity: 0.9; }
-    74%  { transform: scaleX(0.65) scaleY(0.55); opacity: 0.5; }
-    84%  { transform: scaleX(1.05) scaleY(0.85); opacity: 0.85; }
+    10%  { transform: scaleX(1.2)  scaleY(0.65); opacity: 0.85; }
+    28%  { transform: scaleX(0.38) scaleY(0.3);  opacity: 0.2; }
+    62%  { transform: scaleX(1.2)  scaleY(0.65); opacity: 0.85; }
+    74%  { transform: scaleX(0.6)  scaleY(0.5);  opacity: 0.45; }
+    84%  { transform: scaleX(1.08) scaleY(0.85); opacity: 0.8; }
     100% { transform: scaleX(1)    scaleY(1);    opacity: 1; }
   }
   .mascot-shadow.jumping {
@@ -350,7 +347,7 @@
     background: var(--card);
     border: 2.5px solid #B5265A;
     border-radius: 14px;
-    padding: 20px 22px;
+    padding: 20px 22px 28px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -359,7 +356,7 @@
     box-shadow: 0 0 0 4px rgba(181,38,90,0.08);
     transition: box-shadow 0.2s;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
   .qotd-card:hover { box-shadow: 0 0 0 6px rgba(181,38,90,0.13); }
   .qotd-card::before {
@@ -370,6 +367,7 @@
     background: linear-gradient(90deg, #B5265A, #E05080, #B5265A);
     background-size: 200% 100%;
     animation: shimmer 3s linear infinite;
+    border-radius: 12px 12px 0 0;
   }
   @keyframes shimmer {
     0%   { background-position: 200% 0; }
@@ -1041,15 +1039,15 @@
   }
 
   /* ── STREAKS MASCOT ── */
-  .stat-card.has-mascot {
+  .has-mascot {
     position: relative;
     overflow: visible;
   }
 
   .mascot-btn {
     position: absolute;
-    bottom: -10px;
-    right: 14px;
+    bottom: -14px;
+    right: 18px;
     background: none;
     border: none;
     padding: 0;
@@ -1144,14 +1142,9 @@
   }
   [data-theme="dark"] .mp-badge { background: #2A1020; }
   .mp-coin {
-    width: 10px; height: 10px;
-    background: var(--mascot);
-    border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    color: white;
-    font-size: 0.55rem;
-    font-weight: 900;
+    display: inline-flex;
     flex-shrink: 0;
+    line-height: 0;
   }
 
   /* ── CALENDAR ── */
@@ -1516,7 +1509,7 @@
   <div class="welcome-row">
     <h1 class="welcome" style="margin-bottom:0">Welcome, Harvey</h1>
     <div class="mp-counter">
-      <div class="mp-counter-icon">M</div>
+      <div class="mp-counter-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#B5265A"/><text x="16" y="20.5" text-anchor="middle" fill="white" font-size="18" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 16 16)">M</text><line x1="8" y1="16" x2="24" y2="16" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg></div>
       <div>
         <div class="mp-counter-val">1,200</div>
         <div class="mp-counter-label">MeePoints</div>
@@ -1527,21 +1520,11 @@
   <!-- STATS -->
   <div class="stats">
 
-    <!-- LEFT: Streak + mascot -->
-    <div class="stat-card has-mascot">
+    <!-- LEFT: Streak -->
+    <div class="stat-card">
       <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
       <div class="stat-sub">Keep it going — you're on a roll!</div>
-      <div class="mascot-shadow" id="mascot-shadow"></div>
-      <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!">
-        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-          <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-          <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
-          <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-          <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
-        </svg>
-      </button>
     </div>
 
     <!-- MIDDLE: Calendar next event -->
@@ -1599,7 +1582,7 @@
         </div>
         <div class="course-info">
           <div class="course-name">IELTS - Process Description: Introduction + Overview (...</div>
-          <div class="mp-badge"><span class="mp-coin">M</span> 150 MP</div>
+          <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 150 MP</div>
           <div class="course-meta">
             <span class="tag">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1618,7 +1601,7 @@
         </div>
         <div class="course-info">
           <div class="course-name">飲食文化與交流</div>
-          <div class="mp-badge"><span class="mp-coin">M</span> 120 MP</div>
+          <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 120 MP</div>
           <div class="course-meta">
             <span class="tag">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1649,7 +1632,7 @@
         <div class="answer-info">
           <div class="answer-code">YNFC4B</div>
           <div class="answer-status">1 question in progress</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin">M</span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1664,7 +1647,7 @@
         <div class="answer-info">
           <div class="answer-code">XSKRS8</div>
           <div class="answer-status">1 question in progress</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin">M</span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1678,12 +1661,12 @@
     </div>
 
     <!-- QUIZ OF THE DAY -->
-    <div class="qotd-card" onclick="openQuiz(0)">
+    <div class="qotd-card has-mascot" onclick="openQuiz(0)">
       <div class="qotd-top">
         <div>
           <div class="qotd-title">IELTS — Writing Task 1: Process Description</div>
           <div class="qotd-source">Platform Walkthrough · 5 questions · ~4 min</div>
-          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin">M</span> 100 MP bonus today</div>
+          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 100 MP bonus today</div>
         </div>
         <div class="qotd-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1695,6 +1678,16 @@
         <span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 23 classmates completed</span>
       </div>
       <button class="quiz-start-btn" style="align-self:flex-start" onclick="openQuiz(0); event.stopPropagation()">Start Now →</button>
+      <div class="mascot-shadow" id="mascot-shadow"></div>
+      <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="26" fill="#B5265A"/>
+          <circle cx="17.5" cy="26.5" r="8" fill="white"/>
+          <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
+          <circle cx="34.5" cy="26.5" r="8" fill="white"/>
+          <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
+        </svg>
+      </button>
     </div>
 
     <div class="quiz-grid">
@@ -1704,7 +1697,7 @@
           <div>
             <div class="quiz-topic">IELTS Process Description</div>
             <div class="quiz-source">Platform Walkthrough</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 50 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-due">Due</span>
         </div>
@@ -1726,7 +1719,7 @@
           <div>
             <div class="quiz-topic">飲食文化與交流</div>
             <div class="quiz-source">Platform Walkthrough</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 40 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 40 MP</div>
           </div>
           <span class="quiz-badge badge-new">New</span>
         </div>
@@ -1748,7 +1741,7 @@
           <div>
             <div class="quiz-topic">Academic Vocabulary Set A</div>
             <div class="quiz-source">IELTS Writing Task 1</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 60 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 60 MP</div>
           </div>
           <span class="quiz-badge badge-review">Review</span>
         </div>
@@ -1770,7 +1763,7 @@
           <div>
             <div class="quiz-topic">Linking Words & Cohesion</div>
             <div class="quiz-source">IELTS Writing Task 2</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 50 MP earned</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9" text-anchor="middle" fill="white" font-size="7.5" font-weight="900" font-family="-apple-system,sans-serif" transform="rotate(90 6.5 6.5)">M</text><line x1="3" y1="6.5" x2="10" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/></svg></span> 50 MP earned</div>
           </div>
           <span class="quiz-badge badge-done">Done</span>
         </div>
