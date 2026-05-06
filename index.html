@@ -1102,30 +1102,18 @@
   [data-theme="dark"] .answer-item { background: #131316; }
 
   /* ── THEME TOGGLE ── */
-  .theme-toggle {
-    display: flex;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 3px;
-    gap: 2px;
-  }
   .theme-btn {
-    background: none;
-    border: none;
-    border-radius: 16px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 0.78rem;
-    color: var(--muted);
-    transition: background 0.15s, color 0.15s;
-    display: flex; align-items: center; gap: 4px;
-  }
-  .theme-btn.active {
     background: var(--card);
-    color: var(--text);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
   }
+  .theme-btn:hover { color: var(--text); border-color: rgba(181,38,90,0.4); }
 
   /* ── MEEPOINTS BADGE ── */
   .mp-badge {
@@ -1423,17 +1411,7 @@
   </a>
 
   <div class="header-right">
-    <div class="theme-toggle">
-      <button class="theme-btn active" id="theme-light" onclick="setTheme('light')" title="Light">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-      <button class="theme-btn" id="theme-system" onclick="setTheme('system')" title="System">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </button>
-      <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')" title="Dark">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-    </div>
+    <button class="theme-btn" id="theme-cycle-btn" onclick="cycleTheme()" title="Toggle theme"></button>
     <button class="lang-btn" onclick="showToast('Language selector')">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/>
@@ -1999,19 +1977,27 @@
 
 <script>
   // ── THEME ──
-  const THEMES = ['light', 'system', 'dark'];
+  const THEME_CYCLE = ['light', 'system', 'dark'];
+  const THEME_ICONS = {
+    light:  `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+    system: `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    dark:   `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
+  };
+  const THEME_LABELS = { light: 'Light', system: 'System', dark: 'Dark' };
   let currentTheme = localStorage.getItem('meeopp-theme') || 'light';
 
-  function setTheme(t) {
-    currentTheme = t;
-    localStorage.setItem('meeopp-theme', t);
+  function cycleTheme() {
+    const idx = THEME_CYCLE.indexOf(currentTheme);
+    currentTheme = THEME_CYCLE[(idx + 1) % THEME_CYCLE.length];
+    localStorage.setItem('meeopp-theme', currentTheme);
     applyTheme();
   }
 
   function applyTheme() {
     const html = document.documentElement;
-    THEMES.forEach(t => document.getElementById('theme-' + t).classList.remove('active'));
-    document.getElementById('theme-' + currentTheme).classList.add('active');
+    const btn = document.getElementById('theme-cycle-btn');
+    btn.innerHTML = THEME_ICONS[currentTheme];
+    btn.title = THEME_LABELS[currentTheme];
     if (currentTheme === 'system') {
       const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       html.setAttribute('data-theme', dark ? 'dark' : 'light');
