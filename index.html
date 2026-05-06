@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MeeOpp</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --crimson: #8B1A4A;
+    --crimson-light: #c2185b;
+    --purple: #7C3AED;
+    --purple-light: #EDE9FE;
+    --bg: #F7F7F8;
+    --card: #FFFFFF;
+    --border: #EBEBEB;
+    --text: #1A1A1A;
+    --muted: #6B7280;
+    --green: #16A34A;
+    --mascot: #B5265A;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text);
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .lang-btn:hover { background: var(--bg); }
+
+  .notif-wrap {
+    position: relative;
+    cursor: pointer;
+  }
+  .notif-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .notif-btn:hover { background: var(--bg); }
+  .notif-badge {
+    position: absolute;
+    top: 0; right: 0;
+    background: var(--crimson);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+
+  .menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: background 0.15s;
+  }
+  .menu-btn:hover { background: var(--bg); }
+  .menu-btn span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  h1.welcome {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+
+  /* ── STAT CARDS ── */
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px 28px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .stat-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--crimson);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--crimson);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-sub {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  /* ── SECTION TITLE ── */
+  h2.section-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  /* ── UP NEXT ── */
+  .up-next-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .up-next-left { display: flex; flex-direction: column; gap: 12px; }
+
+  .course-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .course-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+  }
+
+  .course-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .course-icon.green { background: #DCFCE7; }
+  .course-icon.pink  { background: #FCE4EC; }
+
+  .course-info { flex: 1; min-width: 0; }
+  .course-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+  .course-meta {
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .course-meta .tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .course-meta .started {
+    color: var(--crimson);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .chevron { color: var(--muted); flex-shrink: 0; }
+
+  /* ── IMPROVE YOUR ANSWERS ── */
+  .improve-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .improve-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .answer-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, background 0.15s;
+  }
+  .answer-item:hover {
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+
+  .answer-icon {
+    width: 42px; height: 42px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .answer-info { flex: 1; }
+  .answer-code {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .answer-status {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .chevron-purple { color: var(--purple); }
+
+  /* ── RECAP QUIZ ── */
+  .quiz-section { margin-bottom: 48px; }
+
+  .quiz-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .quiz-header-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .quiz-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    border-radius: 14px 0 0 14px;
+  }
+  .quiz-card.due::before    { background: var(--crimson); }
+  .quiz-card.new::before    { background: var(--purple); }
+  .quiz-card.review::before { background: #0EA5E9; }
+  .quiz-card.done::before   { background: var(--green); }
+
+  .quiz-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .quiz-topic {
+    font-size: 0.95rem;
+    font-weight: 700;
+    flex: 1;
+    min-width: 0;
+  }
+  .quiz-source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .quiz-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .badge-due    { background: #FCE4EC; color: var(--crimson); }
+  .badge-new    { background: var(--purple-light); color: var(--purple); }
+  .badge-review { background: #E0F2FE; color: #0369A1; }
+  .badge-done   { background: #DCFCE7; color: var(--green); }
+
+  .quiz-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .quiz-meta span { display: flex; align-items: center; gap: 4px; }
+
+  .quiz-start-btn {
+    align-self: flex-start;
+    background: var(--crimson);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 18px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    font-family: inherit;
+  }
+  .quiz-start-btn:hover { background: #7a1640; }
+  .quiz-start-btn:active { transform: scale(0.96); }
+  .quiz-card.done .quiz-start-btn {
+    background: #E5E7EB;
+    color: var(--muted);
+  }
+  .quiz-card.done .quiz-start-btn:hover { background: #D1D5DB; }
+
+  /* quiz modal */
+  .quiz-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 400;
+    align-items: center;
+    justify-content: center;
+  }
+  .quiz-modal-overlay.open { display: flex; }
+
+  .quiz-modal {
+    background: #fff;
+    border-radius: 20px;
+    width: min(520px, 92vw);
+    padding: 32px 32px 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    position: relative;
+  }
+
+  .qm-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .qm-title { font-size: 1.05rem; font-weight: 800; }
+  .qm-source { font-size: 0.78rem; color: var(--muted); margin-bottom: 22px; }
+
+  .qm-progress-bar {
+    height: 5px;
+    background: #F3F4F6;
+    border-radius: 3px;
+    margin-bottom: 26px;
+    overflow: hidden;
+  }
+  .qm-progress-fill {
+    height: 100%;
+    background: var(--crimson);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .qm-question { font-size: 1rem; font-weight: 600; margin-bottom: 18px; line-height: 1.5; }
+
+  .qm-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+
+  .qm-option {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: none;
+    text-align: left;
+    font-family: inherit;
+    color: var(--text);
+  }
+  .qm-option:hover { border-color: var(--crimson); background: #FCE4EC30; }
+  .qm-option.selected { border-color: var(--crimson); background: #FCE4EC60; }
+  .qm-option.correct  { border-color: var(--green); background: #DCFCE7; }
+  .qm-option.wrong    { border-color: #EF4444; background: #FEE2E2; }
+
+  .qm-footer { display: flex; align-items: center; justify-content: space-between; }
+  .qm-counter { font-size: 0.8rem; color: var(--muted); }
+  .qm-next-btn {
+    background: var(--crimson);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .qm-next-btn.visible { opacity: 1; pointer-events: auto; }
+  .qm-next-btn:hover { background: #7a1640; }
+
+  @media (max-width: 640px) {
+    .quiz-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── MEEBOT ── */
+  .meebot-fab {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    z-index: 600;
+    background: none; border: none; padding: 0; cursor: pointer;
+    filter: drop-shadow(0 6px 16px rgba(181,38,90,0.35));
+    transition: transform 0.15s, filter 0.15s;
+    transform-origin: bottom center;
+  }
+  .meebot-fab:hover { transform: scale(1.08); filter: drop-shadow(0 8px 20px rgba(181,38,90,0.45)); }
+  .meebot-fab:active { transform: scale(0.95); }
+
+  .meebot-bubble {
+    position: fixed;
+    bottom: 108px; right: 28px;
+    width: 340px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    z-index: 599;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 480px;
+    transform: scale(0.85) translateY(20px);
+    transform-origin: bottom right;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+  .meebot-bubble.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+  }
+
+  .meebot-header {
+    background: #B5265A;
+    color: #fff;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .meebot-header-name { font-weight: 700; font-size: 0.95rem; }
+  .meebot-header-status { font-size: 0.72rem; opacity: 0.85; }
+  .meebot-header-dot {
+    width: 8px; height: 8px;
+    background: #4ADE80;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-left: auto;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
+  }
+
+  .meebot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 14px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 220px;
+    max-height: 300px;
+    scroll-behavior: smooth;
+  }
+
+  .msg {
+    max-width: 82%;
+    padding: 9px 13px;
+    border-radius: 14px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+  .msg.bot {
+    background: #F3F4F6;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    color: var(--text);
+  }
+  .msg.user {
+    background: #B5265A;
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.typing { color: #9CA3AF; font-style: italic; }
+
+  .meebot-suggestions {
+    padding: 6px 14px 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .suggestion-chip {
+    background: #FCE4EC;
+    color: #B5265A;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .suggestion-chip:hover { background: #F8BBD9; }
+
+  .meebot-input-row {
+    border-top: 1px solid var(--border);
+    padding: 10px 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .meebot-input {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 0.84rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+    background: var(--bg);
+  }
+  .meebot-input:focus { border-color: #B5265A; background: #fff; }
+  .meebot-send {
+    background: #B5265A;
+    border: none;
+    border-radius: 50%;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .meebot-send:hover { background: #9a1e4c; }
+
+  /* ── NOTIFICATIONS DROPDOWN ── */
+  .notif-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -8px;
+    width: 320px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07);
+    z-index: 400;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    transform-origin: top right;
+  }
+  .notif-dropdown.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  /* little caret arrow */
+  .notif-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px; right: 18px;
+    width: 12px; height: 12px;
+    background: #fff;
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+
+  .notif-drop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .notif-drop-title { font-size: 0.9rem; font-weight: 700; }
+  .notif-mark-all {
+    font-size: 0.75rem;
+    color: var(--mascot);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .notif-mark-all:hover { background: #FCE4EC; }
+
+  .notif-item {
+    display: flex;
+    gap: 12px;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.12s;
+    align-items: flex-start;
+  }
+  .notif-item:last-child { border-bottom: none; }
+  .notif-item:hover { background: #FAFAFA; }
+
+  .notif-dot-wrap {
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .notif-dot {
+    display: block;
+    width: 8px; height: 8px;
+    background: var(--mascot);
+    border-radius: 50%;
+  }
+  .notif-dot.read { background: transparent; border: 1.5px solid var(--border); }
+
+  .notif-body { flex: 1; min-width: 0; }
+  .notif-body p { font-size: 0.83rem; line-height: 1.5; color: var(--text); }
+  .notif-time { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+
+  .notif-icon {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .notif-icon.pink  { background: #FCE4EC; }
+  .notif-icon.blue  { background: #DBEAFE; }
+  .notif-icon.green { background: #DCFCE7; }
+
+  .notif-drop-footer {
+    padding: 10px 18px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .notif-drop-footer a {
+    font-size: 0.8rem;
+    color: var(--mascot);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .notif-drop-footer a:hover { text-decoration: underline; }
+
+  /* ── MENU DRAWER ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 200;
+  }
+  .overlay.open { display: block; }
+
+  .drawer {
+    position: fixed;
+    top: 0; right: -380px;
+    width: 360px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    z-index: 300;
+    transition: right 0.3s ease;
+    padding: 28px 24px;
+    overflow-y: auto;
+  }
+  .drawer.open { right: 0; }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .drawer-title { font-size: 1.1rem; font-weight: 700; }
+  .close-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.4rem; color: var(--muted);
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+  }
+  .close-btn:hover { background: var(--bg); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1A1A1A;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 500;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── STREAKS MASCOT ── */
+  .stat-card.has-mascot {
+    position: relative;
+    overflow: visible;
+  }
+
+  .mascot-btn {
+    position: absolute;
+    bottom: -10px;
+    right: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;
+    filter: drop-shadow(0 3px 6px rgba(139,26,74,0.25));
+    transition: filter 0.15s;
+    transform-origin: bottom center;
+  }
+  .mascot-btn:hover {
+    filter: drop-shadow(0 5px 10px rgba(139,26,74,0.35));
+  }
+  .mascot-btn:active { transform: scale(0.93); }
+
+  @keyframes mascot-jump {
+    0%   { transform: translateY(0)     scaleX(1)    scaleY(1); }
+    10%  { transform: translateY(5px)   scaleX(1.22) scaleY(0.75); } /* anticipation squash */
+    28%  { transform: translateY(-38px) scaleX(0.88) scaleY(1.15); } /* peak — stretch tall */
+    50%  { transform: translateY(-16px) scaleX(1)    scaleY(1); }
+    62%  { transform: translateY(0)     scaleX(1.2)  scaleY(0.78); } /* land squash */
+    74%  { transform: translateY(-12px) scaleX(0.93) scaleY(1.08); } /* small bounce */
+    84%  { transform: translateY(0)     scaleX(1.08) scaleY(0.92); } /* settle squash */
+    100% { transform: translateY(0)     scaleX(1)    scaleY(1); }
+  }
+  .mascot-btn.jumping {
+    animation: mascot-jump 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 900px) and (min-width: 641px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .up-next-grid { grid-template-columns: 1fr; }
+    h1.welcome { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="18" fill="#B5265A"/>
+      <!-- left eye white -->
+      <circle cx="12.5" cy="18.5" r="5.6" fill="white"/>
+      <!-- left eye overlay (bg color, upper-left) creates crescent -->
+      <circle cx="10.6" cy="16.8" r="3.8" fill="#B5265A"/>
+      <!-- right eye white -->
+      <circle cx="23.5" cy="18.5" r="5.6" fill="white"/>
+      <!-- right eye overlay -->
+      <circle cx="21.6" cy="16.8" r="3.8" fill="#B5265A"/>
+    </svg>
+    MeeOpp
+  </a>
+
+  <div class="header-right">
+    <button class="lang-btn" onclick="showToast('Language selector')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/>
+      </svg>
+      English
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+
+    <div class="notif-wrap" id="notif-wrap">
+      <button class="notif-btn" onclick="toggleNotifDropdown(event)">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </button>
+      <div class="notif-badge" id="notif-badge">3</div>
+
+      <!-- NOTIFICATIONS DROPDOWN -->
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-drop-header">
+          <span class="notif-drop-title">Notifications</span>
+          <button class="notif-mark-all" onclick="markAllRead()">Mark all as read</button>
+        </div>
+
+        <div class="notif-item" onclick="markRead(this)">
+          <div class="notif-dot-wrap"><span class="notif-dot"></span></div>
+          <div class="notif-icon pink">
+            <svg width="16" height="16" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="notif-body">
+            <p>Your answer for <strong>YNFC4B</strong> has been reviewed — feedback is ready.</p>
+            <div class="notif-time">2 hours ago</div>
+          </div>
+        </div>
+
+        <div class="notif-item" onclick="markRead(this)">
+          <div class="notif-dot-wrap"><span class="notif-dot"></span></div>
+          <div class="notif-icon blue">
+            <svg width="16" height="16" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="notif-body">
+            <p>New lesson unlocked: <strong>IELTS Writing Task 2 — Opinion Essays</strong>.</p>
+            <div class="notif-time">Yesterday</div>
+          </div>
+        </div>
+
+        <div class="notif-item" onclick="markRead(this)">
+          <div class="notif-dot-wrap"><span class="notif-dot"></span></div>
+          <div class="notif-icon green">
+            <svg width="16" height="16" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="notif-body">
+            <p>You completed <strong>飲食文化與交流</strong> Section 1. Keep it up!</p>
+            <div class="notif-time">2 days ago</div>
+          </div>
+        </div>
+
+        <div class="notif-drop-footer">
+          <a href="#" onclick="return false;">View all notifications</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="menu-btn" onclick="openDrawer('menu')">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <h1 class="welcome">Welcome, Harvey</h1>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card" onclick="showToast('1 task in progress')">
+      <div class="stat-label">In Progress</div>
+      <div class="stat-number">1</div>
+      <div class="stat-sub">You're making steady progress.</div>
+    </div>
+    <div class="stat-card" onclick="showToast('3 tasks completed — great work!')">
+      <div class="stat-label">Completed</div>
+      <div class="stat-number">3</div>
+      <div class="stat-sub">Your latest work is ready to review.</div>
+    </div>
+    <div class="stat-card has-mascot" onclick="showToast('7-day streak — keep it up!')">
+      <div class="stat-label">Streaks</div>
+      <div class="stat-number">7</div>
+      <div class="stat-sub">Keep it going — you're on a roll!</div>
+      <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Boo!">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="26" fill="#B5265A"/>
+          <!-- left eye white -->
+          <circle cx="17.5" cy="26.5" r="8" fill="white"/>
+          <!-- left eye overlay -->
+          <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
+          <!-- right eye white -->
+          <circle cx="34.5" cy="26.5" r="8" fill="white"/>
+          <!-- right eye overlay -->
+          <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- UP NEXT -->
+  <h2 class="section-title">Up Next</h2>
+  <div class="up-next-grid">
+    <div class="up-next-left">
+
+      <a class="course-card" href="#" onclick="showToast('Opening IELTS Process Description…'); return false;">
+        <div class="course-icon green">
+          <svg width="22" height="22" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="course-info">
+          <div class="course-name">IELTS - Process Description: Introduction + Overview (...</div>
+          <div class="course-meta">
+            <span class="tag">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              From Platform Walkthrough
+            </span>
+          </div>
+        </div>
+        <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <a class="course-card" href="#" onclick="showToast('Opening 飲食文化與交流…'); return false;">
+        <div class="course-icon pink">
+          <svg width="22" height="22" fill="none" stroke="#E91E63" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="course-info">
+          <div class="course-name">飲食文化與交流</div>
+          <div class="course-meta">
+            <span class="tag">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              Platform Walkthrough
+            </span>
+            <span class="started">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Started
+            </span>
+          </div>
+        </div>
+        <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+    </div>
+
+    <!-- IMPROVE YOUR ANSWERS -->
+    <div class="improve-card">
+      <div class="improve-title">Improve Your Answers</div>
+
+      <div class="answer-item" onclick="showToast('Opening YNFC4B…')">
+        <div class="answer-icon">
+          <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="answer-info">
+          <div class="answer-code">YNFC4B</div>
+          <div class="answer-status">1 question in progress</div>
+        </div>
+        <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+
+      <div class="answer-item" onclick="showToast('Opening XSKRS8…')">
+        <div class="answer-icon">
+          <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="answer-info">
+          <div class="answer-code">XSKRS8</div>
+          <div class="answer-status">1 question in progress</div>
+        </div>
+        <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </div>
+  <!-- RECAP QUIZ -->
+  <div class="quiz-section">
+    <div class="quiz-header">
+      <h2 class="section-title" style="margin-bottom:0">Recap Quiz</h2>
+      <span class="quiz-header-sub">Spaced repetition · 4 sets due</span>
+    </div>
+
+    <div class="quiz-grid">
+
+      <div class="quiz-card due" onclick="openQuiz(0)">
+        <div class="quiz-card-top">
+          <div>
+            <div class="quiz-topic">IELTS Process Description</div>
+            <div class="quiz-source">Platform Walkthrough</div>
+          </div>
+          <span class="quiz-badge badge-due">Due</span>
+        </div>
+        <div class="quiz-meta">
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ~4 min
+          </span>
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            5 questions
+          </span>
+        </div>
+        <button class="quiz-start-btn" onclick="openQuiz(0); event.stopPropagation()">Start Quiz</button>
+      </div>
+
+      <div class="quiz-card new" onclick="openQuiz(1)">
+        <div class="quiz-card-top">
+          <div>
+            <div class="quiz-topic">飲食文化與交流</div>
+            <div class="quiz-source">Platform Walkthrough</div>
+          </div>
+          <span class="quiz-badge badge-new">New</span>
+        </div>
+        <div class="quiz-meta">
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ~3 min
+          </span>
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            4 questions
+          </span>
+        </div>
+        <button class="quiz-start-btn" onclick="openQuiz(1); event.stopPropagation()">Start Quiz</button>
+      </div>
+
+      <div class="quiz-card review" onclick="openQuiz(2)">
+        <div class="quiz-card-top">
+          <div>
+            <div class="quiz-topic">Academic Vocabulary Set A</div>
+            <div class="quiz-source">IELTS Writing Task 1</div>
+          </div>
+          <span class="quiz-badge badge-review">Review</span>
+        </div>
+        <div class="quiz-meta">
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ~5 min
+          </span>
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            6 questions
+          </span>
+        </div>
+        <button class="quiz-start-btn" onclick="openQuiz(2); event.stopPropagation()">Start Quiz</button>
+      </div>
+
+      <div class="quiz-card done">
+        <div class="quiz-card-top">
+          <div>
+            <div class="quiz-topic">Linking Words & Cohesion</div>
+            <div class="quiz-source">IELTS Writing Task 2</div>
+          </div>
+          <span class="quiz-badge badge-done">Done</span>
+        </div>
+        <div class="quiz-meta">
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Completed today
+          </span>
+          <span>
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            5/5 correct
+          </span>
+        </div>
+        <button class="quiz-start-btn" disabled>Completed</button>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- QUIZ MODAL -->
+<div class="quiz-modal-overlay" id="quiz-overlay" onclick="closeQuiz(event)">
+  <div class="quiz-modal" onclick="event.stopPropagation()">
+    <div class="qm-header">
+      <div>
+        <div class="qm-title" id="qm-title"></div>
+        <div class="qm-source" id="qm-source"></div>
+      </div>
+      <button class="close-btn" onclick="closeQuiz()" style="margin-left:12px">&#x2715;</button>
+    </div>
+    <div class="qm-progress-bar"><div class="qm-progress-fill" id="qm-fill"></div></div>
+    <div class="qm-question" id="qm-question"></div>
+    <div class="qm-options" id="qm-options"></div>
+    <div class="qm-footer">
+      <span class="qm-counter" id="qm-counter"></span>
+      <button class="qm-next-btn" id="qm-next" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY (menu only) -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- MENU DRAWER -->
+<div class="drawer" id="menu-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Menu</span>
+    <button class="close-btn" onclick="closeDrawer()">&#x2715;</button>
+  </div>
+  <nav style="display:flex;flex-direction:column;gap:4px;margin-top:8px;">
+    <a href="#" onclick="showToast('Dashboard'); closeDrawer(); return false;" style="padding:12px 10px;border-radius:8px;text-decoration:none;color:inherit;font-weight:600;background:var(--bg);display:flex;align-items:center;gap:10px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="#" onclick="showToast('My Courses'); closeDrawer(); return false;" style="padding:12px 10px;border-radius:8px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      My Courses
+    </a>
+    <a href="#" onclick="showToast('Progress'); closeDrawer(); return false;" style="padding:12px 10px;border-radius:8px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Progress
+    </a>
+    <a href="#" onclick="showToast('Settings'); closeDrawer(); return false;" style="padding:12px 10px;border-radius:8px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </a>
+    <a href="#" onclick="showToast('Logged out'); closeDrawer(); return false;" style="padding:12px 10px;border-radius:8px;text-decoration:none;color:#E11D48;display:flex;align-items:center;gap:10px;margin-top:12px;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Log out
+    </a>
+  </nav>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MEEBOT CHAT BUBBLE -->
+<div class="meebot-bubble" id="meebot-bubble">
+  <div class="meebot-header">
+    <svg width="30" height="30" viewBox="0 0 52 52" fill="none">
+      <circle cx="26" cy="26" r="26" fill="white" fill-opacity="0.25"/>
+      <circle cx="17.5" cy="26.5" r="8" fill="white"/>
+      <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
+      <circle cx="34.5" cy="26.5" r="8" fill="white"/>
+      <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
+    </svg>
+    <div>
+      <div class="meebot-header-name">MeeBot</div>
+      <div class="meebot-header-status">Your MeeOpp guide</div>
+    </div>
+    <div class="meebot-header-dot"></div>
+  </div>
+
+  <div class="meebot-messages" id="meebot-messages"></div>
+
+  <div class="meebot-suggestions" id="meebot-suggestions">
+    <button class="suggestion-chip" onclick="sendSuggestion(this)">How do I start a course?</button>
+    <button class="suggestion-chip" onclick="sendSuggestion(this)">What is a Recap Quiz?</button>
+    <button class="suggestion-chip" onclick="sendSuggestion(this)">How do streaks work?</button>
+    <button class="suggestion-chip" onclick="sendSuggestion(this)">Where's my feedback?</button>
+  </div>
+
+  <div class="meebot-input-row">
+    <input class="meebot-input" id="meebot-input" placeholder="Ask MeeBot anything…" onkeydown="if(event.key==='Enter') sendUserMsg()"/>
+    <button class="meebot-send" onclick="sendUserMsg()">
+      <svg width="16" height="16" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24">
+        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- MEEBOT FAB -->
+<button class="meebot-fab" id="meebot-fab" onclick="toggleMeebot()" title="Chat with MeeBot">
+  <svg width="58" height="58" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="26" r="26" fill="#B5265A"/>
+    <circle cx="17.5" cy="26.5" r="8" fill="white"/>
+    <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
+    <circle cx="34.5" cy="26.5" r="8" fill="white"/>
+    <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
+  </svg>
+</button>
+
+<script>
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  // ── NOTIFICATION DROPDOWN ──
+  let notifOpen = false;
+  let unreadCount = 3;
+
+  function toggleNotifDropdown(e) {
+    e.stopPropagation();
+    notifOpen = !notifOpen;
+    document.getElementById('notif-dropdown').classList.toggle('open', notifOpen);
+    if (notifOpen) closeDrawer();
+  }
+
+  function closeNotifDropdown() {
+    notifOpen = false;
+    document.getElementById('notif-dropdown').classList.remove('open');
+  }
+
+  function markRead(item) {
+    const dot = item.querySelector('.notif-dot');
+    if (dot && !dot.classList.contains('read')) {
+      dot.classList.add('read');
+      unreadCount = Math.max(0, unreadCount - 1);
+      updateBadge();
+    }
+  }
+
+  function markAllRead() {
+    document.querySelectorAll('.notif-dot').forEach(d => d.classList.add('read'));
+    unreadCount = 0;
+    updateBadge();
+  }
+
+  function updateBadge() {
+    const badge = document.getElementById('notif-badge');
+    if (unreadCount === 0) {
+      badge.style.display = 'none';
+    } else {
+      badge.style.display = '';
+      badge.textContent = unreadCount;
+    }
+  }
+
+  // close dropdown when clicking anywhere outside
+  document.addEventListener('click', e => {
+    if (notifOpen && !document.getElementById('notif-wrap').contains(e.target)) {
+      closeNotifDropdown();
+    }
+  });
+
+  // ── MENU DRAWER ──
+  let activeDrawer = null;
+
+  function openDrawer(type) {
+    closeNotifDropdown();
+    closeDrawer();
+    document.getElementById('overlay').classList.add('open');
+    document.getElementById('menu-drawer').classList.add('open');
+    activeDrawer = 'menu-drawer';
+  }
+
+  function closeDrawer() {
+    document.getElementById('overlay').classList.remove('open');
+    if (activeDrawer) {
+      document.getElementById(activeDrawer).classList.remove('open');
+      activeDrawer = null;
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      closeNotifDropdown();
+      document.getElementById('quiz-overlay').classList.remove('open');
+    }
+  });
+
+  // ── QUIZ DATA ──
+  const quizSets = [
+    {
+      title: 'IELTS Process Description',
+      source: 'Platform Walkthrough',
+      questions: [
+        { q: 'What is the primary purpose of an IELTS Process Description essay?', options: ['To argue a point of view', 'To describe how something works or is made', 'To compare two different ideas', 'To narrate a personal experience'], answer: 1 },
+        { q: 'Which tense is most commonly used when describing a manufacturing process?', options: ['Past simple', 'Present perfect', 'Present simple passive', 'Future continuous'], answer: 2 },
+        { q: 'What should the overview paragraph include?', options: ['Your personal opinion', 'The main stages and notable features of the process', 'Specific data and percentages', 'A conclusion summarising the essay'], answer: 1 },
+        { q: 'Which linking phrase best introduces the first step of a process?', options: ['In contrast', 'To begin with / First of all', 'As a result', 'Despite this'], answer: 1 },
+        { q: 'Approximately how many words should a Task 1 response be?', options: ['At least 100', 'At least 150', 'At least 250', 'At least 300'], answer: 1 },
+      ]
+    },
+    {
+      title: '飲食文化與交流',
+      source: 'Platform Walkthrough',
+      questions: [
+        { q: '下列哪項最能描述「飲食文化」的概念？', options: ['食物的烹飪方法', '飲食習慣與社會文化的關聯', '食物的營養成分', '超市的食品種類'], answer: 1 },
+        { q: '哪種場合最常體現飲食文化的交流？', options: ['獨自進餐', '節慶宴席與家庭聚會', '快餐外賣', '健身飲食計劃'], answer: 1 },
+        { q: '「食不厭精，膾不厭細」出自哪位思想家？', options: ['老子', '孟子', '孔子', '莊子'], answer: 2 },
+        { q: '以下哪種做法最能促進跨文化飲食交流？', options: ['堅持本國飲食習慣', '嘗試並了解不同地區的飲食傳統', '避免陌生食物', '只在熟悉的餐廳用餐'], answer: 1 },
+      ]
+    },
+    {
+      title: 'Academic Vocabulary Set A',
+      source: 'IELTS Writing Task 1',
+      questions: [
+        { q: 'Choose the best academic synonym for "go up".', options: ['Increase', 'Rise dramatically', 'Surge / Climb', 'Get higher'], answer: 2 },
+        { q: 'Which phrase correctly describes a plateau in a graph?', options: ['Fell sharply', 'Remained relatively stable', 'Increased steadily', 'Fluctuated wildly'], answer: 1 },
+        { q: 'What does "peaked at" mean in data description?', options: ['Started at a value', 'Reached the lowest point', 'Reached the highest point', 'Dropped suddenly'], answer: 2 },
+        { q: '"The proportion of X accounted for ___% of the total." Which word fits?', options: ['approximately', 'roughly', 'around', 'All of the above are acceptable'], answer: 3 },
+        { q: 'Which sentence uses passive voice correctly for Task 1?', options: ['People consumed 40% more energy.', '40% more energy was consumed.', 'Energy consuming increased by 40%.', 'The energy, it was consumed more.'], answer: 1 },
+        { q: 'What is a "marginal" change in data?', options: ['A very large change', 'A very small or insignificant change', 'An unpredictable change', 'A steady long-term change'], answer: 1 },
+      ]
+    },
+  ];
+
+  let currentSet = null;
+  let currentQ = 0;
+  let answered = false;
+
+  function openQuiz(idx) {
+    currentSet = quizSets[idx];
+    currentQ = 0;
+    answered = false;
+    document.getElementById('quiz-overlay').classList.add('open');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const set = currentSet;
+    const q = set.questions[currentQ];
+    const total = set.questions.length;
+    document.getElementById('qm-title').textContent = set.title;
+    document.getElementById('qm-source').textContent = set.source;
+    document.getElementById('qm-fill').style.width = ((currentQ / total) * 100) + '%';
+    document.getElementById('qm-counter').textContent = `Question ${currentQ + 1} of ${total}`;
+    document.getElementById('qm-question').textContent = q.q;
+    const opts = document.getElementById('qm-options');
+    opts.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'qm-option';
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(i);
+      opts.appendChild(btn);
+    });
+    answered = false;
+    document.getElementById('qm-next').classList.remove('visible');
+  }
+
+  function selectAnswer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = currentSet.questions[currentQ];
+    const btns = document.querySelectorAll('.qm-option');
+    btns.forEach((btn, i) => {
+      btn.classList.remove('selected');
+      if (i === q.answer) btn.classList.add('correct');
+      else if (i === idx && idx !== q.answer) btn.classList.add('wrong');
+    });
+    const nextBtn = document.getElementById('qm-next');
+    const isLast = currentQ === currentSet.questions.length - 1;
+    nextBtn.textContent = isLast ? 'Finish ✓' : 'Next →';
+    nextBtn.classList.add('visible');
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    if (currentQ >= currentSet.questions.length) {
+      closeQuiz();
+      showToast('Quiz complete! Great work.');
+      return;
+    }
+    renderQuestion();
+  }
+
+  function closeQuiz(e) {
+    if (e && e.target !== document.getElementById('quiz-overlay')) return;
+    document.getElementById('quiz-overlay').classList.remove('open');
+  }
+
+  function jumpMascot(e) {
+    e.stopPropagation();
+    const m = document.getElementById('mascot');
+    m.classList.remove('jumping');
+    void m.offsetWidth;
+    m.classList.add('jumping');
+    m.addEventListener('animationend', () => m.classList.remove('jumping'), { once: true });
+  }
+
+  // ── MEEBOT ──
+  const botAnswers = {
+    'how do i start a course?': 'To start a course, head to the <strong>Up Next</strong> section on your dashboard and click on any course card. You\'ll be taken straight to where you left off!',
+    'what is a recap quiz?': 'Recap Quizzes use <strong>spaced repetition</strong> to help you retain what you\'ve learned. They surface material from past assignments at the perfect moment — just as you\'re about to forget it.',
+    'how do streaks work?': 'Your streak counts consecutive days you\'ve completed at least one activity. Keep it going daily to watch that number climb — every day counts! 🔥',
+    "where's my feedback?": 'Your completed assignments are reviewed by tutors. Click the <strong>Completed</strong> card on your dashboard (showing 3) to read your feedback and improve your answers.',
+    'default': "Great question! You can explore your courses in <strong>Up Next</strong>, track progress in the stat cards at the top, and review past work in <strong>Improve Your Answers</strong>. What else can I help with?"
+  };
+
+  let meebotOpen = false;
+  let meebotGreeted = false;
+
+  function toggleMeebot() {
+    meebotOpen = !meebotOpen;
+    document.getElementById('meebot-bubble').classList.toggle('open', meebotOpen);
+    if (meebotOpen && !meebotGreeted) {
+      meebotGreeted = true;
+      setTimeout(() => botSay("Hi Harvey! 👋 I'm <strong>MeeBot</strong>, your MeeOpp guide. How can I help you navigate the platform today?"), 300);
+    }
+  }
+
+  function botSay(text) {
+    const msgs = document.getElementById('meebot-messages');
+    const typing = document.createElement('div');
+    typing.className = 'msg bot typing';
+    typing.textContent = 'MeeBot is typing…';
+    msgs.appendChild(typing);
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      const m = document.createElement('div');
+      m.className = 'msg bot';
+      m.innerHTML = text;
+      msgs.appendChild(m);
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 900);
+  }
+
+  function addUserMsg(text) {
+    const msgs = document.getElementById('meebot-messages');
+    const m = document.createElement('div');
+    m.className = 'msg user';
+    m.textContent = text;
+    msgs.appendChild(m);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function sendSuggestion(btn) {
+    const text = btn.textContent;
+    btn.remove();
+    addUserMsg(text);
+    const key = text.toLowerCase();
+    botSay(botAnswers[key] || botAnswers['default']);
+  }
+
+  function sendUserMsg() {
+    const input = document.getElementById('meebot-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    addUserMsg(text);
+    const key = text.toLowerCase();
+    const matched = Object.keys(botAnswers).find(k => k !== 'default' && key.includes(k.replace('?','')));
+    botSay(matched ? botAnswers[matched] : botAnswers['default']);
+  }
+</script>
+
+</body>
+</html>
