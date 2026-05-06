@@ -157,8 +157,7 @@
     transition: box-shadow 0.2s, transform 0.15s;
   }
   .stat-card:hover {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px rgba(181,38,90,0.35);
   }
 
   .stat-label {
@@ -2041,13 +2040,20 @@
   }
 
   function jumpMascot(e) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     const m = document.getElementById('mascot');
     m.classList.remove('jumping');
     void m.offsetWidth;
     m.classList.add('jumping');
     m.addEventListener('animationend', () => m.classList.remove('jumping'), { once: true });
   }
+
+  // auto-jump every 8–14 seconds (random so it feels natural, not robotic)
+  function scheduleNextJump() {
+    const delay = 8000 + Math.random() * 6000;
+    setTimeout(() => { jumpMascot(null); scheduleNextJump(); }, delay);
+  }
+  scheduleNextJump();
 
   // ── MEEBOT ──
   const botAnswers = {
