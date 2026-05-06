@@ -856,6 +856,327 @@
     animation: mascot-jump 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
 
+  /* ── DARK MODE ── */
+  [data-theme="dark"] {
+    --bg: #0F0F12;
+    --card: #1B1B20;
+    --border: #2D2D34;
+    --text: #F0F0F3;
+    --muted: #8A8A98;
+    --crimson: #D05080;
+    --mascot: #D05080;
+  }
+  [data-theme="dark"] header { background: #16161A; }
+  [data-theme="dark"] .drawer { background: #16161A; }
+  [data-theme="dark"] .quiz-modal { background: #16161A; }
+  [data-theme="dark"] .meebot-bubble { background: #16161A; }
+  [data-theme="dark"] .notif-dropdown { background: #16161A; border-color: var(--border); }
+  [data-theme="dark"] .notif-dropdown::before { background: #16161A; border-color: var(--border); }
+  [data-theme="dark"] .msg.bot { background: #26262C; }
+  [data-theme="dark"] .qm-option { border-color: var(--border); color: var(--text); }
+  [data-theme="dark"] .cal-cell { background: var(--card); border-color: var(--border); }
+  [data-theme="dark"] .cal-cell.other-month { background: #131316; }
+  [data-theme="dark"] .cal-cell.today { background: #2A1020; }
+  [data-theme="dark"] .lb-card { background: var(--card); border-color: var(--border); }
+  [data-theme="dark"] .lb-you { background: #1A2A3A; border-color: #3B82F6; }
+  [data-theme="dark"] .answer-item { background: #131316; }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    display: flex;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .theme-btn {
+    background: none;
+    border: none;
+    border-radius: 16px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .theme-btn.active {
+    background: var(--card);
+    color: var(--text);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  /* ── MEEPOINTS BADGE ── */
+  .mp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--mascot);
+    background: #FCE4EC;
+    border-radius: 10px;
+    padding: 2px 7px;
+    margin-top: 4px;
+  }
+  [data-theme="dark"] .mp-badge { background: #2A1020; }
+  .mp-coin {
+    width: 10px; height: 10px;
+    background: var(--mascot);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 0.55rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  /* ── CALENDAR ── */
+  .cal-section { margin-bottom: 48px; }
+
+  .cal-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+  }
+  .cal-nav-btn {
+    background: none; border: none;
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--muted);
+    transition: background 0.15s;
+  }
+  .cal-nav-btn:hover { background: var(--bg); color: var(--text); }
+  .cal-today-btn {
+    background: none; border: none;
+    padding: 4px 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 7px;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .cal-today-btn:hover { background: var(--bg); }
+
+  .cal-month-label { font-size: 1.3rem; font-weight: 700; }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .cal-day-header {
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .cal-cell {
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    min-height: 90px;
+    padding: 7px 6px 6px;
+    position: relative;
+    vertical-align: top;
+  }
+  .cal-cell.other-month { background: #FAFAFA; }
+  .cal-cell.today { background: #FFF0F4; }
+  .cal-num {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .cal-cell.today .cal-num { color: var(--mascot); font-weight: 800; }
+  .cal-cell:not(.other-month) .cal-num { color: var(--text); }
+  .today-pill {
+    font-size: 0.62rem;
+    font-weight: 700;
+    background: var(--mascot);
+    color: #fff;
+    border-radius: 8px;
+    padding: 1px 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .cal-events { display: flex; flex-direction: column; gap: 3px; }
+  .cal-event {
+    font-size: 0.68rem;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 2px 5px;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .cal-event:hover { opacity: 0.82; }
+  .cal-event.ev-dark  { background: #7A1040; color: #fff; }
+  .cal-event.ev-med   { background: #B5265A; color: #fff; }
+  .cal-event.ev-light { background: #FCE4EC; color: #8B1A4A; }
+
+  .cal-legend {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .cal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .cal-legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── LEADERBOARD ── */
+  .lb-section { margin-bottom: 80px; }
+
+  .lb-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .lb-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .lb-card-title { font-size: 1rem; font-weight: 700; }
+  .lb-timer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .lb-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .lb-left {
+    padding: 20px 22px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .lb-left-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .lb-podium-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lb-medal {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .lb-rank-num {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--mascot);
+    width: 22px;
+  }
+  .lb-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .lb-name { font-size: 0.88rem; font-weight: 600; flex: 1; }
+  .lb-score { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+
+  .lb-right {
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    transition: background 0.12s;
+    cursor: default;
+  }
+  .lb-row:hover { background: var(--bg); }
+  .lb-you {
+    background: #EFF6FF;
+    border-top: 1px solid #BFDBFE;
+    border-bottom: 1px solid #BFDBFE;
+  }
+  .lb-you:hover { background: #EFF6FF; }
+  .lb-you-label {
+    font-size: 0.68rem;
+    color: #3B82F6;
+    font-weight: 600;
+    display: block;
+    margin-top: 1px;
+  }
+  .lb-row .lb-rank-num { width: 26px; text-align: center; }
+  .lb-row .lb-score { margin-left: auto; font-size: 0.82rem; color: var(--muted); }
+  .lb-row .lb-name { font-size: 0.85rem; }
+
+  @media (max-width: 640px) {
+    .lb-body { grid-template-columns: 1fr; }
+    .lb-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .cal-cell { min-height: 60px; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .stats { grid-template-columns: 1fr; }
@@ -887,6 +1208,17 @@
   </a>
 
   <div class="header-right">
+    <div class="theme-toggle">
+      <button class="theme-btn active" id="theme-light" onclick="setTheme('light')" title="Light">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="theme-btn" id="theme-system" onclick="setTheme('system')" title="System">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </button>
+      <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')" title="Dark">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
     <button class="lang-btn" onclick="showToast('Language selector')">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"/>
@@ -1006,6 +1338,7 @@
         </div>
         <div class="course-info">
           <div class="course-name">IELTS - Process Description: Introduction + Overview (...</div>
+          <div class="mp-badge"><span class="mp-coin">M</span> 150 MP</div>
           <div class="course-meta">
             <span class="tag">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1024,6 +1357,7 @@
         </div>
         <div class="course-info">
           <div class="course-name">飲食文化與交流</div>
+          <div class="mp-badge"><span class="mp-coin">M</span> 120 MP</div>
           <div class="course-meta">
             <span class="tag">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1054,6 +1388,7 @@
         <div class="answer-info">
           <div class="answer-code">YNFC4B</div>
           <div class="answer-status">1 question in progress</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin">M</span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1068,6 +1403,7 @@
         <div class="answer-info">
           <div class="answer-code">XSKRS8</div>
           <div class="answer-status">1 question in progress</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin">M</span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1087,6 +1423,7 @@
           <div>
             <div class="quiz-topic">IELTS Process Description</div>
             <div class="quiz-source">Platform Walkthrough</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-due">Due</span>
         </div>
@@ -1108,6 +1445,7 @@
           <div>
             <div class="quiz-topic">飲食文化與交流</div>
             <div class="quiz-source">Platform Walkthrough</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 40 MP</div>
           </div>
           <span class="quiz-badge badge-new">New</span>
         </div>
@@ -1129,6 +1467,7 @@
           <div>
             <div class="quiz-topic">Academic Vocabulary Set A</div>
             <div class="quiz-source">IELTS Writing Task 1</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 60 MP</div>
           </div>
           <span class="quiz-badge badge-review">Review</span>
         </div>
@@ -1150,6 +1489,7 @@
           <div>
             <div class="quiz-topic">Linking Words & Cohesion</div>
             <div class="quiz-source">IELTS Writing Task 2</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin">M</span> 50 MP earned</div>
           </div>
           <span class="quiz-badge badge-done">Done</span>
         </div>
@@ -1166,6 +1506,116 @@
         <button class="quiz-start-btn" disabled>Completed</button>
       </div>
 
+    </div>
+  </div>
+
+  <!-- CALENDAR -->
+  <div class="cal-section">
+    <div class="cal-section-header">
+      <div>
+        <h2 class="section-title" style="margin-bottom:0">Calendar</h2>
+        <div id="cal-month-label" class="cal-month-label" style="margin-top:4px;font-size:1.1rem;font-weight:700;color:var(--muted)"></div>
+      </div>
+      <div class="cal-nav">
+        <button class="cal-nav-btn" onclick="shiftMonth(-1)">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="cal-today-btn" onclick="goToday()">Today</button>
+        <button class="cal-nav-btn" onclick="shiftMonth(1)">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#7A1040"></div> Assignment Due</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#B5265A"></div> Task Deadline</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#FCE4EC;border:1px solid #F9A8C9"></div> Course / Activity</div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="lb-section">
+    <h2 class="section-title">Class Leaderboards</h2>
+    <div class="lb-card">
+      <div class="lb-card-header">
+        <span class="lb-card-title">MeePoints Leaderboard — Month of May</span>
+        <div class="lb-timer">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          4 days remaining
+        </div>
+      </div>
+
+      <div class="lb-body">
+        <!-- TOP 3 -->
+        <div class="lb-left">
+          <div class="lb-left-title">Top 3 this month</div>
+
+          <div class="lb-podium-row">
+            <div class="lb-medal">🥇</div>
+            <span class="lb-rank-num">#1</span>
+            <div class="lb-avatar" style="background:#B5265A">AC</div>
+            <span class="lb-name">Alex Chen</span>
+            <span class="lb-score">2,580</span>
+          </div>
+          <div class="lb-podium-row">
+            <div class="lb-medal">🥈</div>
+            <span class="lb-rank-num">#2</span>
+            <div class="lb-avatar" style="background:#0D9488">SJ</div>
+            <span class="lb-name">Sarah Jones</span>
+            <span class="lb-score">2,150</span>
+          </div>
+          <div class="lb-podium-row">
+            <div class="lb-medal">🥉</div>
+            <span class="lb-rank-num">#3</span>
+            <div class="lb-avatar" style="background:#EA580C">LS</div>
+            <span class="lb-name">Liam Smith</span>
+            <span class="lb-score">1,990</span>
+          </div>
+        </div>
+
+        <!-- FULL RANKING -->
+        <div class="lb-right">
+          <div class="lb-row">
+            <span class="lb-rank-num">#3</span>
+            <div class="lb-avatar" style="background:#B5265A">AC</div>
+            <span class="lb-name">Alex Chen</span>
+            <span class="lb-score">2,580 MP</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank-num">#4</span>
+            <div class="lb-avatar" style="background:#7C3AED">AW</div>
+            <span class="lb-name">Amelia Watson</span>
+            <span class="lb-score">1,720 MP</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank-num">#5</span>
+            <div class="lb-avatar" style="background:#0EA5E9">EF</div>
+            <span class="lb-name">Eddie Frazier</span>
+            <span class="lb-score">1,405 MP</span>
+          </div>
+          <div class="lb-row lb-you">
+            <span class="lb-rank-num">#6</span>
+            <div class="lb-avatar" style="background:#64748B">HL</div>
+            <span class="lb-name">Harvey L.<span class="lb-you-label">You</span></span>
+            <span class="lb-score" style="color:#3B82F6;font-weight:700">1,200 MP</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank-num">#7</span>
+            <div class="lb-avatar" style="background:#F97316">MN</div>
+            <span class="lb-name">Mai Thi Nguyen</span>
+            <span class="lb-score">980 MP</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank-num">#8</span>
+            <div class="lb-avatar" style="background:#DC2626">RB</div>
+            <span class="lb-name">Ryan Brown</span>
+            <span class="lb-score">760 MP</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1275,6 +1725,135 @@
 </button>
 
 <script>
+  // ── THEME ──
+  const THEMES = ['light', 'system', 'dark'];
+  let currentTheme = localStorage.getItem('meeopp-theme') || 'light';
+
+  function setTheme(t) {
+    currentTheme = t;
+    localStorage.setItem('meeopp-theme', t);
+    applyTheme();
+  }
+
+  function applyTheme() {
+    const html = document.documentElement;
+    THEMES.forEach(t => document.getElementById('theme-' + t).classList.remove('active'));
+    document.getElementById('theme-' + currentTheme).classList.add('active');
+    if (currentTheme === 'system') {
+      const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } else {
+      html.setAttribute('data-theme', currentTheme);
+    }
+  }
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (currentTheme === 'system') applyTheme();
+  });
+
+  applyTheme();
+
+  // ── CALENDAR ──
+  const CAL_EVENTS = {
+    1:  [{t: 'Chinese Essay Draft Due',         cls: 'ev-dark'}],
+    6:  [{t: 'Platform Walkthrough (Curriculum)',cls: 'ev-light'}, {t: 'K6M694 task 2 of 2', cls: 'ev-med'}],
+    10: [{t: 'Weekly Quiz: Actively Listening',  cls: 'ev-dark'}],
+    15: [{t: 'Proposal Draft Due',               cls: 'ev-med'}],
+    19: [{t: 'IELTS Process Description',        cls: 'ev-light'}],
+    20: [{t: 'Description Introduction',         cls: 'ev-light'}],
+    24: [{t: 'Project Milestone Review',          cls: 'ev-dark'}],
+    29: [{t: 'Final Chinese Essay Due',           cls: 'ev-dark'}],
+  };
+
+  const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  const realToday = new Date();
+  let calYear  = realToday.getFullYear();
+  let calMonth = realToday.getMonth();
+
+  function renderCalendar() {
+    const grid = document.getElementById('cal-grid');
+    document.getElementById('cal-month-label').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;
+    grid.innerHTML = '';
+
+    // Day headers
+    DAY_NAMES.forEach(d => {
+      const h = document.createElement('div');
+      h.className = 'cal-day-header';
+      h.textContent = d;
+      grid.appendChild(h);
+    });
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const daysInPrev  = new Date(calYear, calMonth, 0).getDate();
+    const isCurrentMonth = calYear === realToday.getFullYear() && calMonth === realToday.getMonth();
+    const todayDate = realToday.getDate();
+
+    const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+
+    for (let i = 0; i < totalCells; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      let dayNum, isOther = false;
+
+      if (i < firstDay) {
+        dayNum = daysInPrev - firstDay + i + 1;
+        isOther = true;
+      } else if (i >= firstDay + daysInMonth) {
+        dayNum = i - firstDay - daysInMonth + 1;
+        isOther = true;
+      } else {
+        dayNum = i - firstDay + 1;
+      }
+
+      if (isOther) cell.classList.add('other-month');
+      if (!isOther && isCurrentMonth && dayNum === todayDate) cell.classList.add('today');
+
+      const numDiv = document.createElement('div');
+      numDiv.className = 'cal-num';
+      numDiv.textContent = dayNum;
+      if (!isOther && isCurrentMonth && dayNum === todayDate) {
+        const pill = document.createElement('span');
+        pill.className = 'today-pill';
+        pill.textContent = 'Today';
+        numDiv.appendChild(pill);
+      }
+      cell.appendChild(numDiv);
+
+      if (!isOther && isCurrentMonth && CAL_EVENTS[dayNum]) {
+        const evWrap = document.createElement('div');
+        evWrap.className = 'cal-events';
+        CAL_EVENTS[dayNum].forEach(ev => {
+          const e = document.createElement('div');
+          e.className = 'cal-event ' + ev.cls;
+          e.textContent = ev.t;
+          e.onclick = () => showToast(ev.t);
+          evWrap.appendChild(e);
+        });
+        cell.appendChild(evWrap);
+      }
+
+      grid.appendChild(cell);
+    }
+  }
+
+  function shiftMonth(delta) {
+    calMonth += delta;
+    if (calMonth < 0)  { calMonth = 11; calYear--; }
+    if (calMonth > 11) { calMonth = 0;  calYear++; }
+    renderCalendar();
+  }
+
+  function goToday() {
+    calYear  = realToday.getFullYear();
+    calMonth = realToday.getMonth();
+    renderCalendar();
+  }
+
+  renderCalendar();
+
   let toastTimer;
   function showToast(msg) {
     const t = document.getElementById('toast');
