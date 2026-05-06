@@ -140,6 +140,49 @@
     letter-spacing: -0.5px;
   }
 
+  /* ── MP COUNTER ── */
+  .welcome-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .mp-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card);
+    border: 1.5px solid rgba(181,38,90,0.25);
+    border-radius: 40px;
+    padding: 8px 18px 8px 10px;
+    box-shadow: 0 2px 10px rgba(181,38,90,0.1);
+  }
+  .mp-counter-icon {
+    width: 32px; height: 32px;
+    background: #B5265A;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+  }
+  .mp-counter-val {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+  .mp-counter-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
   /* ── STAT CARDS ── */
   .stats {
     display: grid;
@@ -154,7 +197,7 @@
     border-radius: 16px;
     padding: 24px 28px 28px;
     cursor: pointer;
-    transition: box-shadow 0.2s, transform 0.15s;
+    transition: box-shadow 0.2s;
   }
   .stat-card:hover {
     box-shadow: 0 0 0 2px rgba(181,38,90,0.35);
@@ -179,6 +222,104 @@
 
   .stat-sub {
     font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  /* ── NAV SHORTCUT CARDS ── */
+  .nav-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s;
+    gap: 14px;
+  }
+  .nav-card:hover { box-shadow: 0 0 0 2px rgba(181,38,90,0.35); }
+  .nav-card-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: #FCE4EC;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  [data-theme="dark"] .nav-card-icon { background: #2A1020; }
+  .nav-card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .nav-card-sub {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .nav-card-arrow {
+    align-self: flex-end;
+    color: var(--mascot);
+  }
+
+  /* ── QUIZ OF THE DAY ── */
+  .qotd-card {
+    background: var(--card);
+    border: 2.5px solid #B5265A;
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    margin-bottom: 14px;
+    box-shadow: 0 0 0 4px rgba(181,38,90,0.08);
+    transition: box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .qotd-card:hover { box-shadow: 0 0 0 6px rgba(181,38,90,0.13); }
+  .qotd-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #B5265A, #E05080, #B5265A);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  .qotd-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .qotd-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #B5265A;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 3px 10px;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .qotd-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .qotd-source {
+    font-size: 0.75rem;
     color: var(--muted);
   }
 
@@ -832,12 +973,12 @@
     padding: 0;
     cursor: pointer;
     line-height: 0;
-    filter: drop-shadow(0 3px 6px rgba(139,26,74,0.25));
+    filter: drop-shadow(0 6px 12px rgba(181,38,90,0.45)) drop-shadow(0 2px 4px rgba(0,0,0,0.18));
     transition: filter 0.15s;
     transform-origin: bottom center;
   }
   .mascot-btn:hover {
-    filter: drop-shadow(0 5px 10px rgba(139,26,74,0.35));
+    filter: drop-shadow(0 10px 18px rgba(181,38,90,0.55)) drop-shadow(0 3px 6px rgba(0,0,0,0.2));
   }
   .mascot-btn:active { transform: scale(0.93); }
 
@@ -1290,22 +1431,41 @@
 
 <!-- MAIN -->
 <main>
-  <h1 class="welcome">Welcome, Harvey</h1>
+  <div class="welcome-row">
+    <h1 class="welcome" style="margin-bottom:0">Welcome, Harvey</h1>
+    <div class="mp-counter">
+      <div class="mp-counter-icon">M</div>
+      <div>
+        <div class="mp-counter-val">1,200</div>
+        <div class="mp-counter-label">MeePoints</div>
+      </div>
+    </div>
+  </div>
 
   <!-- STATS -->
   <div class="stats">
-    <div class="stat-card" onclick="showToast('1 task in progress')">
-      <div class="stat-label">In Progress</div>
-      <div class="stat-number">1</div>
-      <div class="stat-sub">You're making steady progress.</div>
-    </div>
-    <div class="stat-card" onclick="showToast('3 tasks completed — great work!')">
-      <div class="stat-label">Completed</div>
-      <div class="stat-number">3</div>
-      <div class="stat-sub">Your latest work is ready to review.</div>
-    </div>
+    <a class="nav-card" href="#recap-quiz" onclick="this.blur()">
+      <div class="nav-card-icon">
+        <svg width="20" height="20" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div>
+        <div class="nav-card-title">Recap Quiz</div>
+        <div class="nav-card-sub">4 sets due today</div>
+      </div>
+      <svg class="nav-card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <a class="nav-card" href="#leaderboard" onclick="this.blur()">
+      <div class="nav-card-icon">
+        <svg width="20" height="20" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>
+      </div>
+      <div>
+        <div class="nav-card-title">Leaderboard</div>
+        <div class="nav-card-sub">You're ranked #6 this month</div>
+      </div>
+      <svg class="nav-card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
     <div class="stat-card has-mascot" onclick="showToast('7-day streak — keep it up!')">
-      <div class="stat-label">Streaks</div>
+      <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
       <div class="stat-sub">Keep it going — you're on a roll!</div>
       <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Boo!">
@@ -1409,10 +1569,30 @@
     </div>
   </div>
   <!-- RECAP QUIZ -->
-  <div class="quiz-section">
+  <div class="quiz-section" id="recap-quiz">
     <div class="quiz-header">
       <h2 class="section-title" style="margin-bottom:0">Recap Quiz</h2>
       <span class="quiz-header-sub">Spaced repetition · 4 sets due</span>
+    </div>
+
+    <!-- QUIZ OF THE DAY -->
+    <div class="qotd-card" onclick="openQuiz(0)">
+      <div class="qotd-top">
+        <div>
+          <div class="qotd-title">IELTS — Writing Task 1: Process Description</div>
+          <div class="qotd-source">Platform Walkthrough · 5 questions · ~4 min</div>
+          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin">M</span> 100 MP bonus today</div>
+        </div>
+        <div class="qotd-badge">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Quiz of the Day
+        </div>
+      </div>
+      <div class="quiz-meta" style="margin-top:2px">
+        <span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Resets in 14 h</span>
+        <span><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> 23 classmates completed</span>
+      </div>
+      <button class="quiz-start-btn" style="align-self:flex-start" onclick="openQuiz(0); event.stopPropagation()">Start Now →</button>
     </div>
 
     <div class="quiz-grid">
@@ -1536,7 +1716,7 @@
   </div>
 
   <!-- LEADERBOARD -->
-  <div class="lb-section">
+  <div class="lb-section" id="leaderboard">
     <h2 class="section-title">Class Leaderboards</h2>
     <div class="lb-card">
       <div class="lb-card-header">
