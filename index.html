@@ -225,42 +225,124 @@
     color: var(--muted);
   }
 
-  /* ── NAV SHORTCUT CARDS ── */
-  .nav-card {
+  /* ── SMOOTH SCROLL ── */
+  html { scroll-behavior: smooth; }
+  #recap-quiz, #leaderboard, #cal-section { scroll-margin-top: 76px; }
+
+  /* ── SPLIT PANEL (right column) ── */
+  .split-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .split-card {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .split-card:hover { box-shadow: 0 0 0 2px rgba(181,38,90,0.35); }
+  .split-card-text { flex: 1; }
+  .split-card-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+  .split-card-sub   { font-size: 0.73rem; color: var(--muted); }
+  .split-card-arrow { color: var(--mascot); flex-shrink: 0; margin-left: auto; }
+
+  /* ── CALENDAR PREVIEW CARD (middle column) ── */
+  .cal-preview-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 22px 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 12px;
     cursor: pointer;
+    transition: box-shadow 0.2s;
     text-decoration: none;
     color: inherit;
-    transition: box-shadow 0.2s;
-    gap: 14px;
   }
-  .nav-card:hover { box-shadow: 0 0 0 2px rgba(181,38,90,0.35); }
-  .nav-card-icon {
-    width: 40px; height: 40px;
-    border-radius: 12px;
+  .cal-preview-card:hover { box-shadow: 0 0 0 2px rgba(181,38,90,0.35); }
+  .cal-preview-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cal-preview-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--crimson);
+    text-transform: uppercase;
+  }
+  .cal-next-wrap {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  [data-theme="dark"] .cal-next-wrap { background: #0F0F12; }
+  .cal-next-heading {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .cal-next-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .cal-next-date {
+    font-size: 0.75rem;
+    color: var(--mascot);
+    font-weight: 600;
+  }
+  .cal-preview-arrow { color: var(--mascot); align-self: flex-end; }
+
+  /* ── ICON BADGE (shared) ── */
+  .icon-badge {
+    width: 36px; height: 36px;
+    border-radius: 10px;
     background: #FCE4EC;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  [data-theme="dark"] .nav-card-icon { background: #2A1020; }
-  .nav-card-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 2px;
+  [data-theme="dark"] .icon-badge { background: #2A1020; }
+
+  /* ── MASCOT GROUND SHADOW ── */
+  .mascot-shadow {
+    position: absolute;
+    bottom: 6px;
+    right: 21px;
+    width: 38px;
+    height: 10px;
+    background: radial-gradient(ellipse at center, rgba(181,38,90,0.4) 0%, transparent 72%);
+    border-radius: 50%;
+    pointer-events: none;
   }
-  .nav-card-sub {
-    font-size: 0.75rem;
-    color: var(--muted);
+  @keyframes shadow-anim {
+    0%   { transform: scaleX(1)    scaleY(1);    opacity: 1; }
+    10%  { transform: scaleX(1.15) scaleY(0.7);  opacity: 0.9; }
+    28%  { transform: scaleX(0.42) scaleY(0.35); opacity: 0.25; }
+    62%  { transform: scaleX(1.15) scaleY(0.7);  opacity: 0.9; }
+    74%  { transform: scaleX(0.65) scaleY(0.55); opacity: 0.5; }
+    84%  { transform: scaleX(1.05) scaleY(0.85); opacity: 0.85; }
+    100% { transform: scaleX(1)    scaleY(1);    opacity: 1; }
   }
-  .nav-card-arrow {
-    align-self: flex-end;
-    color: var(--mascot);
+  .mascot-shadow.jumping {
+    animation: shadow-anim 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
 
   /* ── QUIZ OF THE DAY ── */
@@ -1444,44 +1526,64 @@
 
   <!-- STATS -->
   <div class="stats">
-    <a class="nav-card" href="#recap-quiz" onclick="this.blur()">
-      <div class="nav-card-icon">
-        <svg width="20" height="20" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </div>
-      <div>
-        <div class="nav-card-title">Recap Quiz</div>
-        <div class="nav-card-sub">4 sets due today</div>
-      </div>
-      <svg class="nav-card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </a>
-    <a class="nav-card" href="#leaderboard" onclick="this.blur()">
-      <div class="nav-card-icon">
-        <svg width="20" height="20" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>
-      </div>
-      <div>
-        <div class="nav-card-title">Leaderboard</div>
-        <div class="nav-card-sub">You're ranked #6 this month</div>
-      </div>
-      <svg class="nav-card-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </a>
-    <div class="stat-card has-mascot" onclick="showToast('7-day streak — keep it up!')">
+
+    <!-- LEFT: Streak + mascot -->
+    <div class="stat-card has-mascot">
       <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
       <div class="stat-sub">Keep it going — you're on a roll!</div>
-      <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Boo!">
+      <div class="mascot-shadow" id="mascot-shadow"></div>
+      <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!">
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-          <!-- left eye white -->
           <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-          <!-- left eye overlay -->
           <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
-          <!-- right eye white -->
           <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-          <!-- right eye overlay -->
           <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
         </svg>
       </button>
     </div>
+
+    <!-- MIDDLE: Calendar next event -->
+    <div class="cal-preview-card" onclick="scrollToSection('cal-section')">
+      <div class="cal-preview-top">
+        <span class="cal-preview-label">Calendar</span>
+        <div class="icon-badge">
+          <svg width="18" height="18" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+      </div>
+      <div class="cal-next-wrap">
+        <div class="cal-next-heading">Next event</div>
+        <div class="cal-next-name">Weekly Quiz: Actively Listening</div>
+        <div class="cal-next-date">May 10 · in 4 days</div>
+      </div>
+      <svg class="cal-preview-arrow" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <!-- RIGHT: Split — Leaderboard + Quiz of the Day -->
+    <div class="split-panel">
+      <div class="split-card" onclick="scrollToSection('leaderboard')">
+        <div class="icon-badge">
+          <svg width="17" height="17" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>
+        </div>
+        <div class="split-card-text">
+          <div class="split-card-title">Leaderboard</div>
+          <div class="split-card-sub">Ranked #6 this month</div>
+        </div>
+        <svg class="split-card-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="split-card" onclick="scrollToSection('recap-quiz')">
+        <div class="icon-badge">
+          <svg width="17" height="17" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="split-card-text">
+          <div class="split-card-title">Quiz of the Day</div>
+          <div class="split-card-sub">100 MP bonus available</div>
+        </div>
+        <svg class="split-card-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+
   </div>
 
   <!-- UP NEXT -->
@@ -1689,7 +1791,7 @@
   </div>
 
   <!-- CALENDAR -->
-  <div class="cal-section">
+  <div class="cal-section" id="cal-section">
     <div class="cal-section-header">
       <div>
         <h2 class="section-title" style="margin-bottom:0">Calendar</h2>
@@ -2219,13 +2321,22 @@
     document.getElementById('quiz-overlay').classList.remove('open');
   }
 
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function jumpMascot(e) {
     if (e) e.stopPropagation();
     const m = document.getElementById('mascot');
+    const s = document.getElementById('mascot-shadow');
     m.classList.remove('jumping');
+    s.classList.remove('jumping');
     void m.offsetWidth;
     m.classList.add('jumping');
+    s.classList.add('jumping');
     m.addEventListener('animationend', () => m.classList.remove('jumping'), { once: true });
+    s.addEventListener('animationend', () => s.classList.remove('jumping'), { once: true });
   }
 
   // auto-jump every 8–14 seconds (random so it feels natural, not robotic)
