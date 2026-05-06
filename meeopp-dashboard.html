@@ -1116,39 +1116,92 @@
   .theme-btn:hover { color: var(--text); border-color: rgba(181,38,90,0.4); }
 
   /* ── LOGIN REWARDS ── */
-  .login-rewards {
+  .reward-open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    background: #FCE4EC;
+    color: #B5265A;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .reward-open-btn:hover { background: #F9C8D9; }
+  [data-theme="dark"] .reward-open-btn { background: #2A1020; color: #D05080; }
+
+  /* ── REWARDS MODAL ── */
+  .rewards-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 700;
+    align-items: center;
+    justify-content: center;
+  }
+  .rewards-overlay.open { display: flex; }
+
+  .rewards-modal {
+    background: var(--card);
+    border-radius: 22px;
+    width: min(480px, 94vw);
+    padding: 28px 26px 26px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    position: relative;
+  }
+  .rewards-modal-header {
     display: flex;
-    gap: 4px;
-    margin-top: 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .rewards-modal-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+  .rewards-modal-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+
+  .reward-track {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
   }
   .reward-day {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     flex: 1;
-    min-width: 0;
   }
   .reward-pip {
     width: 100%;
-    border-radius: 9px;
-    padding: 6px 2px 5px;
+    border-radius: 12px;
+    padding: 10px 4px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    transition: transform 0.15s;
+    gap: 4px;
   }
   .reward-pip.earned   { background: #FCE4EC; }
-  .reward-pip.gold     { background: linear-gradient(160deg,#FEF3C7,#FDE68A); box-shadow: 0 0 0 1.5px #F59E0B; }
-  .reward-pip.upcoming { background: var(--bg); border: 1.5px dashed var(--border); }
+  .reward-pip.gold     { background: linear-gradient(160deg,#FEF3C7,#FDE68A); box-shadow: 0 0 0 2px #F59E0B; }
+  .reward-pip.upcoming { background: var(--bg); border: 2px dashed var(--border); }
   .reward-pip.today-pip {
     background: #B5265A;
-    padding-bottom: 6px;
-    box-shadow: 0 2px 8px rgba(181,38,90,0.35);
+    box-shadow: 0 4px 14px rgba(181,38,90,0.4);
+    padding: 12px 4px 10px;
   }
   .reward-mp {
-    font-size: 0.62rem;
+    font-size: 0.78rem;
     font-weight: 800;
     line-height: 1;
   }
@@ -1157,36 +1210,48 @@
   .reward-pip.upcoming .reward-mp { color: var(--muted); }
   .reward-pip.today-pip .reward-mp { color: #fff; }
   .reward-status {
-    font-size: 0.55rem;
-    line-height: 1;
+    font-size: 0.72rem;
     font-weight: 700;
+    line-height: 1;
   }
   .reward-pip.earned   .reward-status { color: #B5265A; }
-  .reward-pip.gold     .reward-status { color: #92400E; }
+  .reward-pip.gold     .reward-status { color: #B45309; }
   .reward-pip.upcoming .reward-status { color: var(--border); }
-  .reward-claim-btn {
-    font-size: 0.56rem;
-    font-weight: 800;
-    background: rgba(255,255,255,0.25);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 5px;
-    padding: 2px 5px;
-    cursor: pointer;
-    font-family: inherit;
-    line-height: 1.2;
-    transition: background 0.15s;
-    margin-top: 1px;
-  }
-  .reward-claim-btn:hover { background: rgba(255,255,255,0.4); }
   .reward-day-label {
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     color: var(--muted);
     font-weight: 600;
-    letter-spacing: 0.02em;
     text-align: center;
   }
   .reward-day-label.today-lbl { color: #B5265A; font-weight: 800; }
+
+  .reward-claim-big {
+    width: 100%;
+    background: #B5265A;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .reward-claim-big:hover { background: #9a1e4c; }
+  .reward-claim-big:active { transform: scale(0.98); }
+  .reward-claim-big:disabled {
+    background: #E5E7EB;
+    color: var(--muted);
+    cursor: default;
+    transform: none;
+  }
+  [data-theme="dark"] .reward-claim-big:disabled { background: #2A2A30; }
+
   [data-theme="dark"] .reward-pip.earned   { background: #2A1020; }
   [data-theme="dark"] .reward-pip.upcoming { background: #18181C; }
 
@@ -1573,75 +1638,15 @@
   <!-- STATS -->
   <div class="stats">
 
-    <!-- LEFT: Streak + login rewards -->
+    <!-- LEFT: Streak -->
     <div class="stat-card">
-      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px">
-        <div class="stat-label" style="margin-bottom:0">Streak</div>
-        <span style="font-size:0.7rem;color:var(--muted);font-weight:600">Daily Rewards</span>
-      </div>
+      <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
-      <div class="stat-sub" style="margin-bottom:8px">Keep it going — you're on a roll!</div>
-
-      <!-- 3 past · today (middle) · 3 future -->
-      <div class="login-rewards">
-
-        <div class="reward-day">
-          <div class="reward-pip earned">
-            <span class="reward-mp">+30</span>
-            <span class="reward-status">✓</span>
-          </div>
-          <div class="reward-day-label">Mon</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip gold">
-            <span class="reward-mp">+100</span>
-            <span class="reward-status">★</span>
-          </div>
-          <div class="reward-day-label">Tue</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip earned">
-            <span class="reward-mp">+25</span>
-            <span class="reward-status">✓</span>
-          </div>
-          <div class="reward-day-label">Wed</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip today-pip">
-            <span class="reward-mp">+50</span>
-            <button class="reward-claim-btn" id="claim-btn" onclick="claimReward(event)">Claim</button>
-          </div>
-          <div class="reward-day-label today-lbl">Today</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip upcoming">
-            <span class="reward-mp">+20</span>
-            <span class="reward-status">–</span>
-          </div>
-          <div class="reward-day-label">Fri</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip upcoming">
-            <span class="reward-mp">+40</span>
-            <span class="reward-status">–</span>
-          </div>
-          <div class="reward-day-label">Sat</div>
-        </div>
-
-        <div class="reward-day">
-          <div class="reward-pip upcoming">
-            <span class="reward-mp">+15</span>
-            <span class="reward-status">–</span>
-          </div>
-          <div class="reward-day-label">Sun</div>
-        </div>
-
-      </div>
+      <div class="stat-sub">Keep it going — you're on a roll!</div>
+      <button class="reward-open-btn" onclick="openRewardsModal()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        View Daily Rewards
+      </button>
     </div>
 
     <!-- MIDDLE: Calendar next event -->
@@ -2067,6 +2072,84 @@
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- REWARDS MODAL -->
+<div class="rewards-overlay" id="rewards-overlay" onclick="closeRewardsModal(event)">
+  <div class="rewards-modal" onclick="event.stopPropagation()">
+    <div class="rewards-modal-header">
+      <div>
+        <div class="rewards-modal-title">Daily Login Rewards</div>
+      </div>
+      <button class="close-btn" onclick="closeRewardsModal()" style="margin-top:-4px">&#x2715;</button>
+    </div>
+    <div class="rewards-modal-sub">Log in every day to earn MeePoints. Weekly bonus on day 7!</div>
+
+    <div class="reward-track">
+
+      <div class="reward-day">
+        <div class="reward-pip earned">
+          <span class="reward-mp">+30</span>
+          <span class="reward-status">✓</span>
+        </div>
+        <div class="reward-day-label">Mon</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip gold">
+          <span class="reward-mp">+100</span>
+          <span class="reward-status">★</span>
+        </div>
+        <div class="reward-day-label">Tue</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip earned">
+          <span class="reward-mp">+25</span>
+          <span class="reward-status">✓</span>
+        </div>
+        <div class="reward-day-label">Wed</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip today-pip">
+          <span class="reward-mp">+50</span>
+          <span class="reward-status" style="color:#fff;font-size:0.65rem">Today</span>
+        </div>
+        <div class="reward-day-label today-lbl">Thu</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip upcoming">
+          <span class="reward-mp">+20</span>
+          <span class="reward-status">–</span>
+        </div>
+        <div class="reward-day-label">Fri</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip upcoming">
+          <span class="reward-mp">+40</span>
+          <span class="reward-status">–</span>
+        </div>
+        <div class="reward-day-label">Sat</div>
+      </div>
+
+      <div class="reward-day">
+        <div class="reward-pip upcoming">
+          <span class="reward-mp">+15</span>
+          <span class="reward-status">–</span>
+        </div>
+        <div class="reward-day-label">Sun</div>
+      </div>
+
+    </div>
+
+    <button class="reward-claim-big" id="claim-btn" onclick="claimReward()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Claim +50 MeePoints
+    </button>
+  </div>
+</div>
+
 <!-- MEEBOT CHAT BUBBLE -->
 <div class="meebot-bubble" id="meebot-bubble">
   <div class="meebot-header">
@@ -2333,6 +2416,7 @@
       closeDrawer();
       closeNotifDropdown();
       document.getElementById('quiz-overlay').classList.remove('open');
+      document.getElementById('rewards-overlay').classList.remove('open');
     }
   });
 
@@ -2438,20 +2522,21 @@
     document.getElementById('quiz-overlay').classList.remove('open');
   }
 
-  function claimReward(e) {
-    e.stopPropagation();
+  function openRewardsModal() {
+    document.getElementById('rewards-overlay').classList.add('open');
+  }
+  function closeRewardsModal(e) {
+    if (e && e.target !== document.getElementById('rewards-overlay')) return;
+    document.getElementById('rewards-overlay').classList.remove('open');
+  }
+  function claimReward() {
     const btn = document.getElementById('claim-btn');
-    if (btn.textContent === 'Claim') {
-      btn.textContent = '✓ Claimed';
-      btn.style.background = 'rgba(255,255,255,0.15)';
-      btn.style.borderColor = 'rgba(255,255,255,0.3)';
-      btn.style.cursor = 'default';
-      btn.disabled = true;
-      // bump the MP counter
-      const val = document.querySelector('.mp-counter-val');
-      val.textContent = (parseInt(val.textContent.replace(/,/g,'')) + 50).toLocaleString();
-      showToast('+50 MeePoints claimed!');
-    }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.innerHTML = '✓ Claimed — +50 MeePoints';
+    const val = document.querySelector('.mp-counter-val');
+    val.textContent = (parseInt(val.textContent.replace(/,/g,'')) + 50).toLocaleString();
+    showToast('+50 MeePoints claimed!');
   }
 
   function scrollToSection(id) {
