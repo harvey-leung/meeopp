@@ -21,11 +21,16 @@
     --mascot: #B5265A;
   }
 
+  @keyframes page-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg);
     min-height: 100vh;
     color: var(--text);
+    animation: page-fade-in 0.5s ease both;
   }
 
   /* ── HEADER ── */
@@ -53,8 +58,8 @@
   }
 
   .logo-icon {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
   }
 
   .header-right {
@@ -189,7 +194,10 @@
   .stat-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 20px 22px 22px;
     cursor: pointer;
     transition: box-shadow 0.2s;
@@ -236,7 +244,10 @@
     flex: 1;
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 16px 18px;
     display: flex;
     align-items: center;
@@ -256,7 +267,10 @@
   .cal-preview-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 22px 24px;
     display: flex;
     flex-direction: column;
@@ -321,10 +335,10 @@
   /* ── MASCOT GROUND SHADOW ── */
   .mascot-shadow {
     position: absolute;
-    bottom: -16px;
-    right: 10px;
-    width: 40px;
-    height: 11px;
+    bottom: -20px;
+    right: 18px;
+    width: 56px;
+    height: 12px;
     background: radial-gradient(ellipse at center, rgba(181,38,90,0.55) 0%, rgba(181,38,90,0.15) 50%, transparent 75%);
     border-radius: 50%;
     pointer-events: none;
@@ -346,8 +360,11 @@
   /* ── QUIZ OF THE DAY ── */
   .qotd-card {
     background: var(--card);
-    border: 2.5px solid #B5265A;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 14px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 20px 22px 28px;
     display: flex;
     flex-direction: column;
@@ -425,7 +442,10 @@
   .course-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 14px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 18px 20px;
     display: flex;
     align-items: center;
@@ -483,7 +503,10 @@
   .improve-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -1066,7 +1089,7 @@
   @keyframes mascot-jump {
     0%   { transform: translateY(0)     scaleX(1)    scaleY(1); }
     10%  { transform: translateY(5px)   scaleX(1.22) scaleY(0.75); } /* anticipation squash */
-    28%  { transform: translateY(-38px) scaleX(0.88) scaleY(1.15); } /* peak — stretch tall */
+    28%  { transform: translateY(-38px) scaleX(0.88) scaleY(1.15); } /* peak - stretch tall */
     50%  { transform: translateY(-16px) scaleX(1)    scaleY(1); }
     62%  { transform: translateY(0)     scaleX(1.2)  scaleY(0.78); } /* land squash */
     74%  { transform: translateY(-12px) scaleX(0.93) scaleY(1.08); } /* small bounce */
@@ -1414,7 +1437,10 @@
   .lb-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     overflow: hidden;
   }
   .lb-card-header {
@@ -1537,17 +1563,7 @@
 <!-- HEADER -->
 <header>
   <a href="#" class="logo">
-    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="18" fill="#B5265A"/>
-      <!-- left eye white -->
-      <circle cx="12.5" cy="18.5" r="5.6" fill="white"/>
-      <!-- left eye overlay (bg color, upper-left) creates crescent -->
-      <circle cx="10.6" cy="16.8" r="3.8" fill="#B5265A"/>
-      <!-- right eye white -->
-      <circle cx="23.5" cy="18.5" r="5.6" fill="white"/>
-      <!-- right eye overlay -->
-      <circle cx="21.6" cy="16.8" r="3.8" fill="#B5265A"/>
-    </svg>
+    <img src="meeopp-logo.png" class="logo-icon" alt="MeeOpp">
     MeeOpp
   </a>
 
@@ -1584,7 +1600,7 @@
             <svg width="16" height="16" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
           <div class="notif-body">
-            <p>Your answer for <strong>YNFC4B</strong> has been reviewed — feedback is ready.</p>
+            <p>Your answer for <strong>YNFC4B</strong> has been reviewed; feedback is ready.</p>
             <div class="notif-time">2 hours ago</div>
           </div>
         </div>
@@ -1595,7 +1611,7 @@
             <svg width="16" height="16" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
           <div class="notif-body">
-            <p>New lesson unlocked: <strong>IELTS Writing Task 2 — Opinion Essays</strong>.</p>
+            <p>New lesson unlocked: <strong>IELTS Writing Task 2: Opinion Essays</strong>.</p>
             <div class="notif-time">Yesterday</div>
           </div>
         </div>
@@ -1626,7 +1642,7 @@
 <!-- MAIN -->
 <main>
   <div class="welcome-row">
-    <h1 class="welcome" style="margin-bottom:0">Welcome, Harvey</h1>
+    <h1 class="welcome" style="margin-bottom:0" id="greeting-text"></h1>
     <div class="mp-counter">
       <div class="mp-counter-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#B5265A"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></div>
       <div>
@@ -1643,6 +1659,7 @@
     <div class="stat-card">
       <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">Keep it up</div>
       <button class="reward-open-btn" onclick="openRewardsModal()" style="margin-top:auto">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         View Daily Rewards
@@ -1664,7 +1681,7 @@
       <svg class="cal-preview-arrow" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
 
-    <!-- RIGHT: Split — Leaderboard + Quiz of the Day -->
+    <!-- RIGHT: Split - Leaderboard + Quiz of the Day -->
     <div class="split-panel">
       <div class="split-card" onclick="scrollToSection('leaderboard')">
         <div class="icon-badge">
@@ -1686,13 +1703,7 @@
         </div>
         <div class="mascot-shadow" id="mascot-shadow"></div>
         <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-12px;right:10px">
-          <svg width="40" height="40" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-            <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-            <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
-            <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-            <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
-          </svg>
+          <img src="meeopp-logo.png" width="56" height="56" alt="MeeOpp" style="display:block">
         </button>
       </div>
     </div>
@@ -1711,7 +1722,7 @@
           </svg>
         </div>
         <div class="course-info">
-          <div class="course-name">IELTS — Process Description</div>
+          <div class="course-name">IELTS:Process Description</div>
           <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 150 MP</div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1778,7 +1789,7 @@
     <div class="qotd-card" onclick="openQuiz(0)">
       <div class="qotd-top">
         <div>
-          <div class="qotd-title">IELTS — Writing Task 1: Process Description</div>
+          <div class="qotd-title">IELTS:Writing Task 1: Process Description</div>
           <div class="qotd-source">5 questions · ~4 min</div>
           <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 100 MP bonus</div>
         </div>
@@ -1847,7 +1858,10 @@
   <div class="cal-section" id="cal-section">
     <div class="cal-section-header">
       <div>
-        <h2 class="section-title" style="margin-bottom:0">Calendar</h2>
+        <h2 class="section-title" style="margin-bottom:0;display:flex;align-items:center;gap:8px">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Calendar
+        </h2>
         <div id="cal-month-label" class="cal-month-label" style="margin-top:4px;font-size:1.1rem;font-weight:700;color:var(--muted)"></div>
       </div>
       <div class="cal-nav">
@@ -1875,7 +1889,7 @@
     <h2 class="section-title">Class Leaderboards</h2>
     <div class="lb-card">
       <div class="lb-card-header">
-        <span class="lb-card-title">MeePoints Leaderboard — Month of May</span>
+        <span class="lb-card-title">MeePoints Leaderboard: Month of May</span>
         <div class="lb-timer">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           4 days remaining
@@ -2090,13 +2104,7 @@
 <!-- MEEBOT CHAT BUBBLE -->
 <div class="meebot-bubble" id="meebot-bubble">
   <div class="meebot-header">
-    <svg width="30" height="30" viewBox="0 0 52 52" fill="none">
-      <circle cx="26" cy="26" r="26" fill="white" fill-opacity="0.25"/>
-      <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-      <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
-      <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-      <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
-    </svg>
+    <img src="meeopp-logo.png" width="44" height="44" alt="MeeBot" style="display:block;border-radius:50%">
     <div>
       <div class="meebot-header-name">MeeBot</div>
       <div class="meebot-header-status">Online</div>
@@ -2125,13 +2133,7 @@
 
 <!-- MEEBOT FAB -->
 <button class="meebot-fab" id="meebot-fab" onclick="toggleMeebot()" title="Chat with MeeBot">
-  <svg width="58" height="58" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-    <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-    <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
-    <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-    <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
-  </svg>
+  <img src="meeopp-logo.png" width="72" height="72" alt="MeeBot" style="display:block">
 </button>
 
 <script>
@@ -2470,7 +2472,7 @@
     const btn = document.getElementById('claim-btn');
     if (btn.disabled) return;
     btn.disabled = true;
-    btn.innerHTML = '✓ Claimed — +50 MeePoints';
+    btn.innerHTML = '✓ Claimed: +50 MeePoints';
     const val = document.querySelector('.mp-counter-val');
     val.textContent = (parseInt(val.textContent.replace(/,/g,'')) + 50).toLocaleString();
     showToast('+50 MeePoints claimed!');
@@ -2504,8 +2506,8 @@
   // ── MEEBOT ──
   const botAnswers = {
     'how do i start a course?': 'To start a course, head to the <strong>Up Next</strong> section on your dashboard and click on any course card. You\'ll be taken straight to where you left off!',
-    'what is a recap quiz?': 'Recap Quizzes use <strong>spaced repetition</strong> to help you retain what you\'ve learned. They surface material from past assignments at the perfect moment — just as you\'re about to forget it.',
-    'how do streaks work?': 'Your streak counts consecutive days you\'ve completed at least one activity. Keep it going daily to watch that number climb — every day counts! 🔥',
+    'what is a recap quiz?': 'Recap Quizzes use <strong>spaced repetition</strong> to help you retain what you\'ve learned. They surface material from past assignments at the perfect moment, just as you\'re about to forget it.',
+    'how do streaks work?': 'Your streak counts consecutive days you\'ve completed at least one activity. Keep it going daily to watch that number climb - every day counts! 🔥',
     "where's my feedback?": 'Your completed assignments are reviewed by tutors. Click the <strong>Completed</strong> card on your dashboard (showing 3) to read your feedback and improve your answers.',
     'default': "Great question! You can explore your courses in <strong>Up Next</strong>, track progress in the stat cards at the top, and review past work in <strong>Improve Your Answers</strong>. What else can I help with?"
   };
@@ -2566,6 +2568,25 @@
     const matched = Object.keys(botAnswers).find(k => k !== 'default' && key.includes(k.replace('?','')));
     botSay(matched ? botAnswers[matched] : botAnswers['default']);
   }
+</script>
+
+<script>
+  (function() {
+    const greetings = [
+      "Let's get to work, Harvey",
+      "Back on track, Harvey",
+      "Outwork yesterday, Harvey",
+      "Time to level up, Harvey",
+      "Make today count, Harvey",
+      "Stay consistent, Harvey",
+      "One step ahead, Harvey",
+      "Keep the momentum, Harvey",
+      "Eyes on the goal, Harvey",
+      "Push further today, Harvey"
+    ];
+    document.getElementById('greeting-text').textContent =
+      greetings[Math.floor(Math.random() * greetings.length)];
+  })();
 </script>
 
 </body>
