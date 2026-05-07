@@ -347,7 +347,7 @@
   /* ── MASCOT GROUND SHADOW ── */
   .mascot-shadow {
     position: absolute;
-    bottom: -10px;
+    bottom: -22px;
     right: 8px;
     width: 60px;
     height: 10px;
@@ -1310,9 +1310,10 @@
   [data-theme="dark"] .mp-badge { background: #2A1020; }
   .mp-coin {
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    background: url('mp-icon.png') center/contain no-repeat;
+    width: 13px;
+    height: 13px;
+    background: var(--crimson);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     flex-shrink: 0;
     vertical-align: middle;
     margin-right: 2px;
@@ -1718,7 +1719,7 @@
   <div class="welcome-row">
     <h1 class="welcome" style="margin-bottom:0" id="greeting-text"></h1>
     <div class="mp-counter">
-      <div class="mp-counter-icon"><img src="mp-icon.png" width="36" height="36" alt="MP" style="display:block"></div>
+      <div class="mp-counter-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="var(--crimson)"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
       <div>
         <div class="mp-counter-val">1,200</div>
         <div class="mp-counter-label">MeePoints</div>
@@ -1776,7 +1777,7 @@
           <div class="split-card-sub">+100 MP bonus</div>
         </div>
         <div class="mascot-shadow" id="mascot-shadow"></div>
-        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:0;right:8px">
+        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-14px;right:8px">
           <img src="meeopp-logo.png" width="60" height="60" alt="MeeOpp" style="display:block">
         </button>
       </div>
