@@ -21,11 +21,26 @@
     --mascot: #B5265A;
   }
 
+  @keyframes page-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes panel-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .panel-hidden {
+    opacity: 0;
+  }
+  .panel-visible {
+    animation: panel-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Georgia', 'Times New Roman', serif;
     background: var(--bg);
     min-height: 100vh;
     color: var(--text);
+    animation: page-fade-in 0.5s ease both;
   }
 
   /* ── HEADER ── */
@@ -37,9 +52,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    z-index: 500;
   }
 
   .logo {
@@ -53,8 +70,8 @@
   }
 
   .logo-icon {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
   }
 
   .header-right {
@@ -130,7 +147,7 @@
   main {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 108px 24px 80px;
   }
 
   h1.welcome {
@@ -189,7 +206,10 @@
   .stat-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 20px 22px 22px;
     cursor: pointer;
     transition: box-shadow 0.2s;
@@ -236,7 +256,10 @@
     flex: 1;
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 16px 18px;
     display: flex;
     align-items: center;
@@ -256,7 +279,10 @@
   .cal-preview-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 22px 24px;
     display: flex;
     flex-direction: column;
@@ -321,10 +347,10 @@
   /* ── MASCOT GROUND SHADOW ── */
   .mascot-shadow {
     position: absolute;
-    bottom: -16px;
-    right: 10px;
-    width: 40px;
-    height: 11px;
+    bottom: -22px;
+    right: 8px;
+    width: 60px;
+    height: 10px;
     background: radial-gradient(ellipse at center, rgba(181,38,90,0.55) 0%, rgba(181,38,90,0.15) 50%, transparent 75%);
     border-radius: 50%;
     pointer-events: none;
@@ -346,8 +372,11 @@
   /* ── QUIZ OF THE DAY ── */
   .qotd-card {
     background: var(--card);
-    border: 2.5px solid #B5265A;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 14px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 20px 22px 28px;
     display: flex;
     flex-direction: column;
@@ -420,12 +449,16 @@
     margin-bottom: 32px;
   }
 
-  .up-next-left { display: flex; flex-direction: column; gap: 12px; }
+  .up-next-left { display: flex; flex-direction: column; gap: 12px; align-self: stretch; }
+  .up-next-grid > :last-child { align-self: stretch; }
 
   .course-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 14px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 18px 20px;
     display: flex;
     align-items: center;
@@ -483,11 +516,16 @@
   .improve-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: 100%;
+    box-sizing: border-box;
   }
 
   .improve-title {
@@ -878,7 +916,7 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07);
-    z-index: 400;
+    z-index: 600;
     overflow: hidden;
     opacity: 0;
     transform: translateY(-6px) scale(0.97);
@@ -1066,7 +1104,7 @@
   @keyframes mascot-jump {
     0%   { transform: translateY(0)     scaleX(1)    scaleY(1); }
     10%  { transform: translateY(5px)   scaleX(1.22) scaleY(0.75); } /* anticipation squash */
-    28%  { transform: translateY(-38px) scaleX(0.88) scaleY(1.15); } /* peak — stretch tall */
+    28%  { transform: translateY(-38px) scaleX(0.88) scaleY(1.15); } /* peak - stretch tall */
     50%  { transform: translateY(-16px) scaleX(1)    scaleY(1); }
     62%  { transform: translateY(0)     scaleX(1.2)  scaleY(0.78); } /* land squash */
     74%  { transform: translateY(-12px) scaleX(0.93) scaleY(1.08); } /* small bounce */
@@ -1271,9 +1309,14 @@
   }
   [data-theme="dark"] .mp-badge { background: #2A1020; }
   .mp-coin {
-    display: inline-flex;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background: var(--crimson);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     flex-shrink: 0;
-    line-height: 0;
+    vertical-align: middle;
+    margin-right: 2px;
   }
 
   /* ── CALENDAR ── */
@@ -1414,7 +1457,10 @@
   .lb-card {
     background: var(--card);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--crimson);
     border-radius: 16px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     overflow: hidden;
   }
   .lb-card-header {
@@ -1521,6 +1567,26 @@
     .cal-cell { min-height: 60px; }
   }
 
+  /* ── BACKGROUND SHAPES ── */
+  .bg-shapes {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bg-shapes-inner {
+    position: absolute;
+    inset: -100px;
+    opacity: 0.07;
+    animation: bg-drift 24s ease-in-out infinite alternate;
+  }
+  @keyframes bg-drift {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(80px, 80px); }
+  }
+  main { position: relative; z-index: 1; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .stats { grid-template-columns: 1fr; }
@@ -1534,20 +1600,45 @@
 </head>
 <body>
 
+<!-- BACKGROUND SHAPES -->
+<div class="bg-shapes" aria-hidden="true">
+  <div class="bg-shapes-inner">
+    <!-- figure-8 yellow -->
+    <svg style="position:absolute;left:4%;top:5%" width="60" height="80" viewBox="0 0 60 80"><circle cx="30" cy="20" r="20" fill="#F5C518"/><circle cx="30" cy="60" r="20" fill="#F5C518"/></svg>
+    <!-- 4-leaf clover dark green -->
+    <svg style="position:absolute;left:22%;top:12%" width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="14" r="18" fill="#1A4D2E"/><circle cx="56" cy="35" r="18" fill="#1A4D2E"/><circle cx="35" cy="56" r="18" fill="#1A4D2E"/><circle cx="14" cy="35" r="18" fill="#1A4D2E"/></svg>
+    <!-- horiz bowtie red -->
+    <svg style="position:absolute;left:42%;top:4%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#E53030"/></svg>
+    <!-- circle pink -->
+    <svg style="position:absolute;left:62%;top:8%" width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="31" fill="#E04880"/></svg>
+    <!-- vert hourglass blue -->
+    <svg style="position:absolute;left:82%;top:3%" width="60" height="80" viewBox="0 0 60 80"><path d="M0,0 L60,0 Q30,40 60,80 L0,80 Q30,40 0,0 Z" fill="#5B9BD5"/></svg>
+    <!-- bowl orange -->
+    <svg style="position:absolute;left:8%;top:35%" width="70" height="45" viewBox="0 0 70 45"><path d="M0,0 L70,0 C70,0 70,45 35,45 C0,45 0,0 0,0 Z" fill="#D94A1E"/></svg>
+    <!-- pac-man purple -->
+    <svg style="position:absolute;left:30%;top:38%" width="62" height="62" viewBox="0 0 62 62"><path d="M31,31 L57,16 A28,28 0 1 0 57,46 Z" fill="#6B2878"/></svg>
+    <!-- triangle light pink -->
+    <svg style="position:absolute;left:52%;top:32%" width="64" height="58" viewBox="0 0 64 58"><polygon points="32,2 62,56 2,56" fill="#F2B8C8"/></svg>
+    <!-- horiz bowtie gold -->
+    <svg style="position:absolute;left:72%;top:36%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#F5C518"/></svg>
+    <!-- 3-leaf clover green -->
+    <svg style="position:absolute;left:90%;top:30%" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="14" r="18" fill="#3DB870"/><circle cx="46" cy="46" r="18" fill="#3DB870"/><circle cx="18" cy="46" r="18" fill="#3DB870"/></svg>
+    <!-- second row repeats with offsets -->
+    <svg style="position:absolute;left:14%;top:62%" width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="31" fill="#E04880"/></svg>
+    <svg style="position:absolute;left:35%;top:68%" width="60" height="80" viewBox="0 0 60 80"><circle cx="30" cy="20" r="20" fill="#F5C518"/><circle cx="30" cy="60" r="20" fill="#F5C518"/></svg>
+    <svg style="position:absolute;left:56%;top:60%" width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="14" r="18" fill="#1A4D2E"/><circle cx="56" cy="35" r="18" fill="#1A4D2E"/><circle cx="35" cy="56" r="18" fill="#1A4D2E"/><circle cx="14" cy="35" r="18" fill="#1A4D2E"/></svg>
+    <svg style="position:absolute;left:76%;top:65%" width="64" height="58" viewBox="0 0 64 58"><polygon points="32,2 62,56 2,56" fill="#F2B8C8"/></svg>
+    <svg style="position:absolute;left:2%;top:80%" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="14" r="18" fill="#3DB870"/><circle cx="46" cy="46" r="18" fill="#3DB870"/><circle cx="18" cy="46" r="18" fill="#3DB870"/></svg>
+    <svg style="position:absolute;left:44%;top:85%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#E53030"/></svg>
+    <svg style="position:absolute;left:66%;top:78%" width="62" height="62" viewBox="0 0 62 62"><path d="M31,31 L57,16 A28,28 0 1 0 57,46 Z" fill="#6B2878"/></svg>
+    <svg style="position:absolute;left:86%;top:82%" width="70" height="45" viewBox="0 0 70 45"><path d="M0,0 L70,0 C70,0 70,45 35,45 C0,45 0,0 0,0 Z" fill="#D94A1E"/></svg>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header>
   <a href="#" class="logo">
-    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="18" cy="18" r="18" fill="#B5265A"/>
-      <!-- left eye white -->
-      <circle cx="12.5" cy="18.5" r="5.6" fill="white"/>
-      <!-- left eye overlay (bg color, upper-left) creates crescent -->
-      <circle cx="10.6" cy="16.8" r="3.8" fill="#B5265A"/>
-      <!-- right eye white -->
-      <circle cx="23.5" cy="18.5" r="5.6" fill="white"/>
-      <!-- right eye overlay -->
-      <circle cx="21.6" cy="16.8" r="3.8" fill="#B5265A"/>
-    </svg>
+    <img src="meeopp-logo.png" class="logo-icon" alt="MeeOpp">
     MeeOpp
   </a>
 
@@ -1584,7 +1675,7 @@
             <svg width="16" height="16" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
           <div class="notif-body">
-            <p>Your answer for <strong>YNFC4B</strong> has been reviewed — feedback is ready.</p>
+            <p>Your answer for <strong>YNFC4B</strong> has been reviewed; feedback is ready.</p>
             <div class="notif-time">2 hours ago</div>
           </div>
         </div>
@@ -1595,7 +1686,7 @@
             <svg width="16" height="16" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           </div>
           <div class="notif-body">
-            <p>New lesson unlocked: <strong>IELTS Writing Task 2 — Opinion Essays</strong>.</p>
+            <p>New lesson unlocked: <strong>IELTS Writing Task 2: Opinion Essays</strong>.</p>
             <div class="notif-time">Yesterday</div>
           </div>
         </div>
@@ -1626,9 +1717,9 @@
 <!-- MAIN -->
 <main>
   <div class="welcome-row">
-    <h1 class="welcome" style="margin-bottom:0">Welcome, Harvey</h1>
+    <h1 class="welcome" style="margin-bottom:0" id="greeting-text"></h1>
     <div class="mp-counter">
-      <div class="mp-counter-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#B5265A"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></div>
+      <div class="mp-counter-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="var(--crimson)"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
       <div>
         <div class="mp-counter-val">1,200</div>
         <div class="mp-counter-label">MeePoints</div>
@@ -1643,6 +1734,7 @@
     <div class="stat-card">
       <div class="stat-label">Streak</div>
       <div class="stat-number">7</div>
+      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px">Keep it up</div>
       <button class="reward-open-btn" onclick="openRewardsModal()" style="margin-top:auto">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         View Daily Rewards
@@ -1664,7 +1756,7 @@
       <svg class="cal-preview-arrow" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
 
-    <!-- RIGHT: Split — Leaderboard + Quiz of the Day -->
+    <!-- RIGHT: Split - Leaderboard + Quiz of the Day -->
     <div class="split-panel">
       <div class="split-card" onclick="scrollToSection('leaderboard')">
         <div class="icon-badge">
@@ -1676,7 +1768,7 @@
         </div>
         <svg class="split-card-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
-      <div class="split-card has-mascot" style="overflow:visible;padding-right:52px" onclick="scrollToSection('recap-quiz')">
+      <div class="split-card has-mascot" style="overflow:visible;padding-right:90px;align-items:flex-start" onclick="scrollToSection('recap-quiz')">
         <div class="icon-badge">
           <svg width="17" height="17" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
@@ -1685,14 +1777,8 @@
           <div class="split-card-sub">+100 MP bonus</div>
         </div>
         <div class="mascot-shadow" id="mascot-shadow"></div>
-        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-12px;right:10px">
-          <svg width="40" height="40" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-            <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-            <circle cx="14.8" cy="24.2" r="5.3" fill="#B5265A"/>
-            <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-            <circle cx="31.8" cy="24.2" r="5.3" fill="#B5265A"/>
-          </svg>
+        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-14px;right:8px">
+          <img src="meeopp-logo.png" width="60" height="60" alt="MeeOpp" style="display:block">
         </button>
       </div>
     </div>
@@ -1711,8 +1797,8 @@
           </svg>
         </div>
         <div class="course-info">
-          <div class="course-name">IELTS — Process Description</div>
-          <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 150 MP</div>
+          <div class="course-name">IELTS:Process Description</div>
+          <div class="mp-badge"><span class="mp-coin"></span> 150 MP</div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
@@ -1726,8 +1812,7 @@
         <div class="course-info">
           <div class="course-name">飲食文化與交流</div>
           <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
-            <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 120 MP</div>
-            <span class="started" style="font-size:0.72rem">● Started</span>
+            <div class="mp-badge"><span class="mp-coin"></span> 120 MP</div>
           </div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1748,7 +1833,7 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">YNFC4B</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1762,7 +1847,7 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">XSKRS8</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1778,9 +1863,9 @@
     <div class="qotd-card" onclick="openQuiz(0)">
       <div class="qotd-top">
         <div>
-          <div class="qotd-title">IELTS — Writing Task 1: Process Description</div>
+          <div class="qotd-title">IELTS:Writing Task 1: Process Description</div>
           <div class="qotd-source">5 questions · ~4 min</div>
-          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 100 MP bonus</div>
+          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"></span> 100 MP bonus</div>
         </div>
         <div class="qotd-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1796,7 +1881,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">IELTS Process Description</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-due">Due</span>
         </div>
@@ -1808,7 +1893,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">飲食文化與交流</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 40 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 40 MP</div>
           </div>
           <span class="quiz-badge badge-new">New</span>
         </div>
@@ -1820,7 +1905,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Academic Vocabulary Set A</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 60 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 60 MP</div>
           </div>
           <span class="quiz-badge badge-review">Review</span>
         </div>
@@ -1832,7 +1917,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Linking Words & Cohesion</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-done">Done</span>
         </div>
@@ -1847,7 +1932,10 @@
   <div class="cal-section" id="cal-section">
     <div class="cal-section-header">
       <div>
-        <h2 class="section-title" style="margin-bottom:0">Calendar</h2>
+        <h2 class="section-title" style="margin-bottom:0;display:flex;align-items:center;gap:8px">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Calendar
+        </h2>
         <div id="cal-month-label" class="cal-month-label" style="margin-top:4px;font-size:1.1rem;font-weight:700;color:var(--muted)"></div>
       </div>
       <div class="cal-nav">
@@ -1875,7 +1963,7 @@
     <h2 class="section-title">Class Leaderboards</h2>
     <div class="lb-card">
       <div class="lb-card-header">
-        <span class="lb-card-title">MeePoints Leaderboard — Month of May</span>
+        <span class="lb-card-title">MeePoints Leaderboard: Month of May</span>
         <div class="lb-timer">
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           4 days remaining
@@ -1890,21 +1978,21 @@
             <span class="lb-rank-num">#1</span>
             <div class="lb-avatar" style="background:#B5265A">AC</div>
             <span class="lb-name">Alex Chen</span>
-            <span class="lb-score">2,580</span>
+            <span class="lb-score">2,580 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-podium-row">
             <div class="lb-medal">🥈</div>
             <span class="lb-rank-num">#2</span>
             <div class="lb-avatar" style="background:#0D9488">SJ</div>
             <span class="lb-name">Sarah Jones</span>
-            <span class="lb-score">2,150</span>
+            <span class="lb-score">2,150 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-podium-row">
             <div class="lb-medal">🥉</div>
             <span class="lb-rank-num">#3</span>
             <div class="lb-avatar" style="background:#EA580C">LS</div>
             <span class="lb-name">Liam Smith</span>
-            <span class="lb-score">1,990</span>
+            <span class="lb-score">1,990 <span class="mp-coin"></span></span>
           </div>
         </div>
 
@@ -1914,37 +2002,37 @@
             <span class="lb-rank-num">#3</span>
             <div class="lb-avatar" style="background:#B5265A">AC</div>
             <span class="lb-name">Alex Chen</span>
-            <span class="lb-score">2,580 MP</span>
+            <span class="lb-score">2,580 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#4</span>
             <div class="lb-avatar" style="background:#7C3AED">AW</div>
             <span class="lb-name">Amelia Watson</span>
-            <span class="lb-score">1,720 MP</span>
+            <span class="lb-score">1,720 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#5</span>
             <div class="lb-avatar" style="background:#0EA5E9">EF</div>
             <span class="lb-name">Eddie Frazier</span>
-            <span class="lb-score">1,405 MP</span>
+            <span class="lb-score">1,405 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row lb-you">
             <span class="lb-rank-num">#6</span>
             <div class="lb-avatar" style="background:#64748B">HL</div>
             <span class="lb-name">Harvey L.<span class="lb-you-label">You</span></span>
-            <span class="lb-score" style="color:#3B82F6;font-weight:700">1,200 MP</span>
+            <span class="lb-score" style="color:#3B82F6;font-weight:700">1,200 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#7</span>
             <div class="lb-avatar" style="background:#F97316">MN</div>
             <span class="lb-name">Mai Thi Nguyen</span>
-            <span class="lb-score">980 MP</span>
+            <span class="lb-score">980 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#8</span>
             <div class="lb-avatar" style="background:#DC2626">RB</div>
             <span class="lb-name">Ryan Brown</span>
-            <span class="lb-score">760 MP</span>
+            <span class="lb-score">760 <span class="mp-coin"></span></span>
           </div>
         </div>
       </div>
@@ -2090,13 +2178,7 @@
 <!-- MEEBOT CHAT BUBBLE -->
 <div class="meebot-bubble" id="meebot-bubble">
   <div class="meebot-header">
-    <svg width="30" height="30" viewBox="0 0 52 52" fill="none">
-      <circle cx="26" cy="26" r="26" fill="white" fill-opacity="0.25"/>
-      <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-      <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
-      <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-      <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
-    </svg>
+    <img src="meeopp-logo.png" width="44" height="44" alt="MeeBot" style="display:block;border-radius:50%">
     <div>
       <div class="meebot-header-name">MeeBot</div>
       <div class="meebot-header-status">Online</div>
@@ -2125,13 +2207,7 @@
 
 <!-- MEEBOT FAB -->
 <button class="meebot-fab" id="meebot-fab" onclick="toggleMeebot()" title="Chat with MeeBot">
-  <svg width="58" height="58" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="26" cy="26" r="26" fill="#B5265A"/>
-    <circle cx="17.5" cy="26.5" r="8" fill="white"/>
-    <circle cx="14.8" cy="24.2" r="6.4" fill="#B5265A"/>
-    <circle cx="34.5" cy="26.5" r="8" fill="white"/>
-    <circle cx="31.8" cy="24.2" r="6.4" fill="#B5265A"/>
-  </svg>
+  <img src="meeopp-logo.png" width="72" height="72" alt="MeeBot" style="display:block">
 </button>
 
 <script>
@@ -2470,7 +2546,7 @@
     const btn = document.getElementById('claim-btn');
     if (btn.disabled) return;
     btn.disabled = true;
-    btn.innerHTML = '✓ Claimed — +50 MeePoints';
+    btn.innerHTML = '✓ Claimed: +50 MeePoints';
     const val = document.querySelector('.mp-counter-val');
     val.textContent = (parseInt(val.textContent.replace(/,/g,'')) + 50).toLocaleString();
     showToast('+50 MeePoints claimed!');
@@ -2478,7 +2554,9 @@
 
   function scrollToSection(id) {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
   function jumpMascot(e) {
@@ -2504,8 +2582,8 @@
   // ── MEEBOT ──
   const botAnswers = {
     'how do i start a course?': 'To start a course, head to the <strong>Up Next</strong> section on your dashboard and click on any course card. You\'ll be taken straight to where you left off!',
-    'what is a recap quiz?': 'Recap Quizzes use <strong>spaced repetition</strong> to help you retain what you\'ve learned. They surface material from past assignments at the perfect moment — just as you\'re about to forget it.',
-    'how do streaks work?': 'Your streak counts consecutive days you\'ve completed at least one activity. Keep it going daily to watch that number climb — every day counts! 🔥',
+    'what is a recap quiz?': 'Recap Quizzes use <strong>spaced repetition</strong> to help you retain what you\'ve learned. They surface material from past assignments at the perfect moment, just as you\'re about to forget it.',
+    'how do streaks work?': 'Your streak counts consecutive days you\'ve completed at least one activity. Keep it going daily to watch that number climb - every day counts! 🔥',
     "where's my feedback?": 'Your completed assignments are reviewed by tutors. Click the <strong>Completed</strong> card on your dashboard (showing 3) to read your feedback and improve your answers.',
     'default': "Great question! You can explore your courses in <strong>Up Next</strong>, track progress in the stat cards at the top, and review past work in <strong>Improve Your Answers</strong>. What else can I help with?"
   };
@@ -2566,6 +2644,52 @@
     const matched = Object.keys(botAnswers).find(k => k !== 'default' && key.includes(k.replace('?','')));
     botSay(matched ? botAnswers[matched] : botAnswers['default']);
   }
+</script>
+
+<script>
+  (function() {
+    const greetings = [
+      "Let's get to work, Harvey",
+      "Back on track, Harvey",
+      "Outwork yesterday, Harvey",
+      "Time to level up, Harvey",
+      "Make today count, Harvey",
+      "Stay consistent, Harvey",
+      "One step ahead, Harvey",
+      "Keep the momentum, Harvey",
+      "Eyes on the goal, Harvey",
+      "Push further today, Harvey"
+    ];
+    document.getElementById('greeting-text').textContent =
+      greetings[Math.floor(Math.random() * greetings.length)];
+  })();
+
+  // Clear any hash from URL on load to prevent auto-scroll to #leaderboard etc.
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+
+  // Panel fade-in on scroll into view
+  (function() {
+    const panels = document.querySelectorAll(
+      '.stat-card, .split-card, .cal-preview-card, .course-card, ' +
+      '.improve-card, .quiz-card, .lb-card, .qotd-card, ' +
+      '.quiz-section, .lb-section, .cal-section, .up-next-grid, .stats-row'
+    );
+    panels.forEach(el => el.classList.add('panel-hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.style.animationDelay = (i * 40) + 'ms';
+          el.classList.remove('panel-hidden');
+          el.classList.add('panel-visible');
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.08 });
+    panels.forEach(el => observer.observe(el));
+  })();
 </script>
 
 </body>
