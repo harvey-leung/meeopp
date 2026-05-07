@@ -25,8 +25,18 @@
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  @keyframes panel-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .panel-hidden {
+    opacity: 0;
+  }
+  .panel-visible {
+    animation: panel-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Georgia', 'Times New Roman', serif;
     background: var(--bg);
     min-height: 100vh;
     color: var(--text);
@@ -42,9 +52,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    z-index: 500;
   }
 
   .logo {
@@ -135,7 +147,7 @@
   main {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 108px 24px 80px;
   }
 
   h1.welcome {
@@ -335,10 +347,10 @@
   /* ── MASCOT GROUND SHADOW ── */
   .mascot-shadow {
     position: absolute;
-    bottom: -20px;
-    right: 18px;
-    width: 56px;
-    height: 12px;
+    bottom: -10px;
+    right: 8px;
+    width: 60px;
+    height: 10px;
     background: radial-gradient(ellipse at center, rgba(181,38,90,0.55) 0%, rgba(181,38,90,0.15) 50%, transparent 75%);
     border-radius: 50%;
     pointer-events: none;
@@ -437,7 +449,8 @@
     margin-bottom: 32px;
   }
 
-  .up-next-left { display: flex; flex-direction: column; gap: 12px; }
+  .up-next-left { display: flex; flex-direction: column; gap: 12px; align-self: stretch; }
+  .up-next-grid > :last-child { align-self: stretch; }
 
   .course-card {
     background: var(--card);
@@ -511,6 +524,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: 100%;
+    box-sizing: border-box;
   }
 
   .improve-title {
@@ -901,7 +916,7 @@
     border: 1px solid var(--border);
     border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07);
-    z-index: 400;
+    z-index: 600;
     overflow: hidden;
     opacity: 0;
     transform: translateY(-6px) scale(0.97);
@@ -1294,9 +1309,13 @@
   }
   [data-theme="dark"] .mp-badge { background: #2A1020; }
   .mp-coin {
-    display: inline-flex;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: url('mp-icon.png') center/contain no-repeat;
     flex-shrink: 0;
-    line-height: 0;
+    vertical-align: middle;
+    margin-right: 2px;
   }
 
   /* ── CALENDAR ── */
@@ -1547,6 +1566,26 @@
     .cal-cell { min-height: 60px; }
   }
 
+  /* ── BACKGROUND SHAPES ── */
+  .bg-shapes {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bg-shapes-inner {
+    position: absolute;
+    inset: -100px;
+    opacity: 0.07;
+    animation: bg-drift 24s ease-in-out infinite alternate;
+  }
+  @keyframes bg-drift {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(80px, 80px); }
+  }
+  main { position: relative; z-index: 1; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .stats { grid-template-columns: 1fr; }
@@ -1559,6 +1598,41 @@
 </style>
 </head>
 <body>
+
+<!-- BACKGROUND SHAPES -->
+<div class="bg-shapes" aria-hidden="true">
+  <div class="bg-shapes-inner">
+    <!-- figure-8 yellow -->
+    <svg style="position:absolute;left:4%;top:5%" width="60" height="80" viewBox="0 0 60 80"><circle cx="30" cy="20" r="20" fill="#F5C518"/><circle cx="30" cy="60" r="20" fill="#F5C518"/></svg>
+    <!-- 4-leaf clover dark green -->
+    <svg style="position:absolute;left:22%;top:12%" width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="14" r="18" fill="#1A4D2E"/><circle cx="56" cy="35" r="18" fill="#1A4D2E"/><circle cx="35" cy="56" r="18" fill="#1A4D2E"/><circle cx="14" cy="35" r="18" fill="#1A4D2E"/></svg>
+    <!-- horiz bowtie red -->
+    <svg style="position:absolute;left:42%;top:4%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#E53030"/></svg>
+    <!-- circle pink -->
+    <svg style="position:absolute;left:62%;top:8%" width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="31" fill="#E04880"/></svg>
+    <!-- vert hourglass blue -->
+    <svg style="position:absolute;left:82%;top:3%" width="60" height="80" viewBox="0 0 60 80"><path d="M0,0 L60,0 Q30,40 60,80 L0,80 Q30,40 0,0 Z" fill="#5B9BD5"/></svg>
+    <!-- bowl orange -->
+    <svg style="position:absolute;left:8%;top:35%" width="70" height="45" viewBox="0 0 70 45"><path d="M0,0 L70,0 C70,0 70,45 35,45 C0,45 0,0 0,0 Z" fill="#D94A1E"/></svg>
+    <!-- pac-man purple -->
+    <svg style="position:absolute;left:30%;top:38%" width="62" height="62" viewBox="0 0 62 62"><path d="M31,31 L57,16 A28,28 0 1 0 57,46 Z" fill="#6B2878"/></svg>
+    <!-- triangle light pink -->
+    <svg style="position:absolute;left:52%;top:32%" width="64" height="58" viewBox="0 0 64 58"><polygon points="32,2 62,56 2,56" fill="#F2B8C8"/></svg>
+    <!-- horiz bowtie gold -->
+    <svg style="position:absolute;left:72%;top:36%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#F5C518"/></svg>
+    <!-- 3-leaf clover green -->
+    <svg style="position:absolute;left:90%;top:30%" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="14" r="18" fill="#3DB870"/><circle cx="46" cy="46" r="18" fill="#3DB870"/><circle cx="18" cy="46" r="18" fill="#3DB870"/></svg>
+    <!-- second row repeats with offsets -->
+    <svg style="position:absolute;left:14%;top:62%" width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="31" fill="#E04880"/></svg>
+    <svg style="position:absolute;left:35%;top:68%" width="60" height="80" viewBox="0 0 60 80"><circle cx="30" cy="20" r="20" fill="#F5C518"/><circle cx="30" cy="60" r="20" fill="#F5C518"/></svg>
+    <svg style="position:absolute;left:56%;top:60%" width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="14" r="18" fill="#1A4D2E"/><circle cx="56" cy="35" r="18" fill="#1A4D2E"/><circle cx="35" cy="56" r="18" fill="#1A4D2E"/><circle cx="14" cy="35" r="18" fill="#1A4D2E"/></svg>
+    <svg style="position:absolute;left:76%;top:65%" width="64" height="58" viewBox="0 0 64 58"><polygon points="32,2 62,56 2,56" fill="#F2B8C8"/></svg>
+    <svg style="position:absolute;left:2%;top:80%" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="14" r="18" fill="#3DB870"/><circle cx="46" cy="46" r="18" fill="#3DB870"/><circle cx="18" cy="46" r="18" fill="#3DB870"/></svg>
+    <svg style="position:absolute;left:44%;top:85%" width="80" height="60" viewBox="0 0 80 60"><path d="M0,0 L0,60 Q40,30 80,60 L80,0 Q40,30 0,0 Z" fill="#E53030"/></svg>
+    <svg style="position:absolute;left:66%;top:78%" width="62" height="62" viewBox="0 0 62 62"><path d="M31,31 L57,16 A28,28 0 1 0 57,46 Z" fill="#6B2878"/></svg>
+    <svg style="position:absolute;left:86%;top:82%" width="70" height="45" viewBox="0 0 70 45"><path d="M0,0 L70,0 C70,0 70,45 35,45 C0,45 0,0 0,0 Z" fill="#D94A1E"/></svg>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -1644,7 +1718,7 @@
   <div class="welcome-row">
     <h1 class="welcome" style="margin-bottom:0" id="greeting-text"></h1>
     <div class="mp-counter">
-      <div class="mp-counter-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#B5265A"/><text x="16" y="22" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></div>
+      <div class="mp-counter-icon"><img src="mp-icon.png" width="36" height="36" alt="MP" style="display:block"></div>
       <div>
         <div class="mp-counter-val">1,200</div>
         <div class="mp-counter-label">MeePoints</div>
@@ -1693,7 +1767,7 @@
         </div>
         <svg class="split-card-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
-      <div class="split-card has-mascot" style="overflow:visible;padding-right:52px" onclick="scrollToSection('recap-quiz')">
+      <div class="split-card has-mascot" style="overflow:visible;padding-right:90px;align-items:flex-start" onclick="scrollToSection('recap-quiz')">
         <div class="icon-badge">
           <svg width="17" height="17" fill="none" stroke="#B5265A" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
         </div>
@@ -1702,8 +1776,8 @@
           <div class="split-card-sub">+100 MP bonus</div>
         </div>
         <div class="mascot-shadow" id="mascot-shadow"></div>
-        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:-12px;right:10px">
-          <img src="meeopp-logo.png" width="56" height="56" alt="MeeOpp" style="display:block">
+        <button class="mascot-btn" id="mascot" onclick="jumpMascot(event)" title="Click me!" style="bottom:0;right:8px">
+          <img src="meeopp-logo.png" width="60" height="60" alt="MeeOpp" style="display:block">
         </button>
       </div>
     </div>
@@ -1723,7 +1797,7 @@
         </div>
         <div class="course-info">
           <div class="course-name">IELTS:Process Description</div>
-          <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 150 MP</div>
+          <div class="mp-badge"><span class="mp-coin"></span> 150 MP</div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
@@ -1737,8 +1811,7 @@
         <div class="course-info">
           <div class="course-name">飲食文化與交流</div>
           <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
-            <div class="mp-badge"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 120 MP</div>
-            <span class="started" style="font-size:0.72rem">● Started</span>
+            <div class="mp-badge"><span class="mp-coin"></span> 120 MP</div>
           </div>
         </div>
         <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1759,7 +1832,7 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">YNFC4B</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1773,7 +1846,7 @@
         </div>
         <div class="answer-info">
           <div class="answer-code">XSKRS8</div>
-          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 80 MP</div>
+          <div class="mp-badge" style="margin-top:3px"><span class="mp-coin"></span> 80 MP</div>
         </div>
         <svg class="chevron-purple" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
@@ -1791,7 +1864,7 @@
         <div>
           <div class="qotd-title">IELTS:Writing Task 1: Process Description</div>
           <div class="qotd-source">5 questions · ~4 min</div>
-          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 100 MP bonus</div>
+          <div class="mp-badge" style="margin-top:6px"><span class="mp-coin"></span> 100 MP bonus</div>
         </div>
         <div class="qotd-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1807,7 +1880,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">IELTS Process Description</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-due">Due</span>
         </div>
@@ -1819,7 +1892,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">飲食文化與交流</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 40 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 40 MP</div>
           </div>
           <span class="quiz-badge badge-new">New</span>
         </div>
@@ -1831,7 +1904,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Academic Vocabulary Set A</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 60 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 60 MP</div>
           </div>
           <span class="quiz-badge badge-review">Review</span>
         </div>
@@ -1843,7 +1916,7 @@
         <div class="quiz-card-top">
           <div>
             <div class="quiz-topic">Linking Words & Cohesion</div>
-            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6.5" cy="6.5" r="6.5" fill="#B5265A"/><text x="6.5" y="9.8" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="-apple-system,sans-serif">$</text></svg></span> 50 MP</div>
+            <div class="mp-badge" style="margin-top:4px"><span class="mp-coin"></span> 50 MP</div>
           </div>
           <span class="quiz-badge badge-done">Done</span>
         </div>
@@ -1904,21 +1977,21 @@
             <span class="lb-rank-num">#1</span>
             <div class="lb-avatar" style="background:#B5265A">AC</div>
             <span class="lb-name">Alex Chen</span>
-            <span class="lb-score">2,580</span>
+            <span class="lb-score">2,580 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-podium-row">
             <div class="lb-medal">🥈</div>
             <span class="lb-rank-num">#2</span>
             <div class="lb-avatar" style="background:#0D9488">SJ</div>
             <span class="lb-name">Sarah Jones</span>
-            <span class="lb-score">2,150</span>
+            <span class="lb-score">2,150 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-podium-row">
             <div class="lb-medal">🥉</div>
             <span class="lb-rank-num">#3</span>
             <div class="lb-avatar" style="background:#EA580C">LS</div>
             <span class="lb-name">Liam Smith</span>
-            <span class="lb-score">1,990</span>
+            <span class="lb-score">1,990 <span class="mp-coin"></span></span>
           </div>
         </div>
 
@@ -1928,37 +2001,37 @@
             <span class="lb-rank-num">#3</span>
             <div class="lb-avatar" style="background:#B5265A">AC</div>
             <span class="lb-name">Alex Chen</span>
-            <span class="lb-score">2,580 MP</span>
+            <span class="lb-score">2,580 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#4</span>
             <div class="lb-avatar" style="background:#7C3AED">AW</div>
             <span class="lb-name">Amelia Watson</span>
-            <span class="lb-score">1,720 MP</span>
+            <span class="lb-score">1,720 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#5</span>
             <div class="lb-avatar" style="background:#0EA5E9">EF</div>
             <span class="lb-name">Eddie Frazier</span>
-            <span class="lb-score">1,405 MP</span>
+            <span class="lb-score">1,405 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row lb-you">
             <span class="lb-rank-num">#6</span>
             <div class="lb-avatar" style="background:#64748B">HL</div>
             <span class="lb-name">Harvey L.<span class="lb-you-label">You</span></span>
-            <span class="lb-score" style="color:#3B82F6;font-weight:700">1,200 MP</span>
+            <span class="lb-score" style="color:#3B82F6;font-weight:700">1,200 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#7</span>
             <div class="lb-avatar" style="background:#F97316">MN</div>
             <span class="lb-name">Mai Thi Nguyen</span>
-            <span class="lb-score">980 MP</span>
+            <span class="lb-score">980 <span class="mp-coin"></span></span>
           </div>
           <div class="lb-row">
             <span class="lb-rank-num">#8</span>
             <div class="lb-avatar" style="background:#DC2626">RB</div>
             <span class="lb-name">Ryan Brown</span>
-            <span class="lb-score">760 MP</span>
+            <span class="lb-score">760 <span class="mp-coin"></span></span>
           </div>
         </div>
       </div>
@@ -2480,7 +2553,9 @@
 
   function scrollToSection(id) {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: 'smooth' });
   }
 
   function jumpMascot(e) {
@@ -2586,6 +2661,33 @@
     ];
     document.getElementById('greeting-text').textContent =
       greetings[Math.floor(Math.random() * greetings.length)];
+  })();
+
+  // Clear any hash from URL on load to prevent auto-scroll to #leaderboard etc.
+  if (window.location.hash) {
+    history.replaceState(null, '', window.location.pathname);
+  }
+
+  // Panel fade-in on scroll into view
+  (function() {
+    const panels = document.querySelectorAll(
+      '.stat-card, .split-card, .cal-preview-card, .course-card, ' +
+      '.improve-card, .quiz-card, .lb-card, .qotd-card, ' +
+      '.quiz-section, .lb-section, .cal-section, .up-next-grid, .stats-row'
+    );
+    panels.forEach(el => el.classList.add('panel-hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.style.animationDelay = (i * 40) + 'ms';
+          el.classList.remove('panel-hidden');
+          el.classList.add('panel-visible');
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.08 });
+    panels.forEach(el => observer.observe(el));
   })();
 </script>
 
